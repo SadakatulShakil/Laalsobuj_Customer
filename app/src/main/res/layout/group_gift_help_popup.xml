@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    android:background="@color/white">
+
+    <com.futureskyltd.app.external.CustomTextView
+        app:typeface="font_bold.ttf"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:padding="10dp"
+        android:textSize="@dimen/text_size_medium"
+        android:text="@string/how_it_works"
+        android:textColor="@color/textPrimary"/>
+
+    <com.futureskyltd.app.external.CustomTextView
+        app:typeface="font_regular.ttf"
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:lineSpacingExtra="5dp"
+        android:textSize="@dimen/text_size_medium"
+        android:text="@string/group_gift_steps"
+        android:textColor="@color/textSecondary"/>
+
+    <com.futureskyltd.app.external.CustomTextView
+        app:typeface="font_bold.ttf"
+        android:id="@+id/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginStart="15dp"
+        android:padding="10dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:textSize="@dimen/text_size_medium"
+        android:text="@string/ok"
+        android:textColor="@color/colorPrimary"/>
+</LinearLayout>

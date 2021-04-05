@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+    <com.futureskyltd.app.external.CustomTextView
+        android:id="@+id/question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Q: what are you working?"
+        android:textColor="@color/textPrimary"
+        android:textSize="@dimen/text_size_medium"
+        app:typeface="font_regular.ttf"/>
+
+    <com.futureskyltd.app.external.CustomEditText
+        android:id="@+id/answeredit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint=""
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:layout_marginTop="15dp"
+        android:singleLine="true"
+        android:textColor="@color/textPrimary"
+        android:textSize="@dimen/text_size_medium"
+        app:typeface="font_regular.ttf" />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <com.futureskyltd.app.external.CustomTextView
+        android:id="@+id/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="@string/ok"
+        android:padding="15dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_size_medium"
+        android:layout_marginTop="15dp"
+        android:layout_alignParentRight="true"
+        app:typeface="font_bold.ttf" />
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="15dp"
+            android:layout_marginRight="15dp"
+            android:text="@string/cancel"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_medium"
+            android:layout_marginTop="15dp"
+            android:layout_toLeftOf="@+id/ok"
+            app:typeface="font_bold.ttf" />
+
+
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="@color/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+
+        <include
+            android:id="@+id/actionbar"
+            layout="@layout/actionbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:layoutDirection="@string/layout_direction"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <com.futureskyltd.app.external.RoundedImageView
+            android:id="@+id/itemImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@mipmap/appicon_round"
+            android:scaleType="centerCrop"
+            app:corner_radius="100dip"
+            app:round_background="true" />
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/itemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="15dp"
+            android:text="item name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_medium"
+            app:typeface="font_regular.ttf" />
+    </LinearLayout>
+
+    <MultiAutoCompleteTextView
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="@color/white"
+        android:gravity="start"
+        android:hint="@string/type_your_comment"
+        android:maxLength="180"
+        android:padding="15dp"
+        android:textColor="@color/textSecondary"
+        android:textColorHint="@color/textLight"
+        android:textSize="@dimen/text_size_small" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
+</LinearLayout>

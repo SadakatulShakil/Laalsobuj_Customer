@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="40dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="@color/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp">
+
+                <include
+                    android:id="@+id/actionbar"
+                    layout="@layout/actionbar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:layoutDirection="@string/layout_direction"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <com.futureskyltd.app.external.RoundedImageView
+                    android:id="@+id/itemImage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@mipmap/appicon_round"
+                    android:scaleType="centerCrop"
+                    app:corner_radius="100dip"
+                    app:round_background="true" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/itemName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="15dp"
+                    android:maxLines="1"
+                    android:text="item name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_regular.ttf" />
+            </LinearLayout>
+
+            <com.futureskyltd.app.external.CustomEditText
+                android:id="@+id/shippingDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/edittext_bg"
+                android:focusable="false"
+                android:hint="@string/shipping_date"
+                android:inputType="none"
+                android:padding="10dp"
+                android:textColor="@color/textPrimary"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_regular.ttf" />
+
+            <com.futureskyltd.app.external.CustomEditText
+                android:id="@+id/shippingName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/edittext_bg"
+                android:hint="@string/shipping_name"
+                android:padding="10dp"
+                android:textColor="@color/textPrimary"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_regular.ttf" />
+
+            <com.futureskyltd.app.external.CustomEditText
+                android:id="@+id/shippingService"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/edittext_bg"
+                android:hint="@string/shipping_service"
+                android:padding="10dp"
+                android:textColor="@color/textPrimary"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_regular.ttf" />
+
+            <com.futureskyltd.app.external.CustomEditText
+                android:id="@+id/trackingId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/edittext_bg"
+                android:hint="@string/tracking_id"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textColor="@color/textPrimary"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_regular.ttf" />
+
+
+            <com.futureskyltd.app.external.CustomEditText
+                android:id="@+id/additionalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/edittext_bg"
+                android:gravity="top"
+                android:hint="@string/additional_message_opt"
+                android:minLines="4"
+                android:padding="10dp"
+                android:textColor="@color/textPrimary"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_regular.ttf" />
+        </LinearLayout>
+    </ScrollView>
+
+    <com.futureskyltd.app.external.CustomTextView
+        android:id="@+id/continueBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:clickable="true"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="@string/continu"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_small"
+        app:typeface="font_bold.ttf" />
+
+</RelativeLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#006838</color>
+    <color name="colorPrimaryDark">#006838</color>
+    <color name="progresscolor">#168ad4</color>
+    <color name="colorAccent">#f03775</color>
+    <color name="textPrimary">#444444</color>
+    <color name="textSecondary">#666666</color>
+    <color name="textLight">#888888</color>
+    <color name="divider">#eceaea</color>
+    <color name="review_unrate">#D4DAE1</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="dealBg">#d9253d</color>
+    <color name="bg">#f1f1f1</color>
+    <color name="transparent">#00000000</color>
+    <color name="seekLine">#c3c9c9</color>
+    <color name="red">#d62d20</color>
+    <color name="green">#008744</color>
+    <color name="opct_white">#80FFFFFF</color>
+    <color name="orange">#ff600a</color>
+    <color name="light_yellow">#e6d42d</color>
+    <color name="yellow">#FDD100</color>
+    <color name="green_progress">#00E521</color>
+    <color name="admin_news_bg">#dfe9ed</color>
+    <color name="no_item_text">#666666</color>
+    <color name="profile_transparent">#991999eb</color>
+    <color name="shade">#8BD5D3D3</color>
+    <color name="color_ascent">#CAE00F</color>
+    <color name="color_primary">#AB97D2</color>
+    <color name="fred">#DA0309</color>
+    <color name="forange">#F3EC582A</color>
+    <color name="fgreen">#037E09</color>
+    <color name="green_lite">#5B06CF0F</color>
+    <color name="driver">#D5D3D3</color>
+    <color name="ftransparent">#0000ffff</color>
+</resources>

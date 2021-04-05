@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "40717421753",
+    "firebase_url": "https://fantacy-9cec8.firebaseio.com",
+    "project_id": "fantacy-9cec8",
+    "storage_bucket": "fantacy-9cec8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40717421753:android:6f39f2549691a84000df68",
+        "android_client_info": {
+          "package_name": "com.futureskyltd.app.fantacy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40717421753-69k4n291v5jdl058guu68l2phoert186.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAudv29Z0BMKX0O2IPerDd4DbvKU6VvyVY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40717421753-69k4n291v5jdl058guu68l2phoert186.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

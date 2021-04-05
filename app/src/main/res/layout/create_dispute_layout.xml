@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/disputeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="@color/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ActivityToolbar"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <include
+                android:id="@+id/actionbar"
+                layout="@layout/actionbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/toolbar"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/order_id"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/orderId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="2122"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/price"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="$ 0"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="@string/total_items"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/itemTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="2"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/createDispute"
+            android:layout_below="@id/tabLayout">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layoutDirection="@string/layout_direction"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/spinnerLay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Spinner
+                        android:id="@+id/querySpin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:dropDownAnchor="@+id/spinView"
+                        android:dropDownWidth="match_parent"
+                        android:prompt="@string/select_query"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <ImageView
+                        android:id="@+id/dropdownImg"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="15dp"
+                        android:src="@drawable/down_arrow" />
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/spinView"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider" />
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/messageEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:background="@color/white"
+                    android:gravity="start"
+                    android:hint="@string/type_your_message"
+                    android:padding="15dp"
+                    android:textColor="@color/textSecondary"
+                    android:textColorHint="@color/textLight"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@color/divider" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/createDispute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="@string/create_dispute"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_small"
+            app:typeface="font_bold.ttf" />
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/progress"
+        layout="@layout/progress_lay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+</RelativeLayout>

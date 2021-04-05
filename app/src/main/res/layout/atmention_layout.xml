@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="15dp">
+
+    <com.futureskyltd.app.external.RoundedImageView
+        android:id="@+id/userImage"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@+id/soldBy"
+        android:scaleType="centerCrop"
+        android:background="@mipmap/appicon_round"
+        app:corner_radius="100dip"
+        app:round_background="true"/>
+
+    <com.futureskyltd.app.external.CustomTextView
+        app:typeface="font_regular.ttf"
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textSize="@dimen/text_size_medium"
+        android:text="User name"
+        android:textColor="@color/textPrimary"/>
+
+</LinearLayout>

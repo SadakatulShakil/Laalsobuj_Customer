@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/toplay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:paddingEnd="3dp"
+            android:paddingStart="3dp"
+            android:text="@string/forgot_password"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_header"
+            app:typeface="font_bold.ttf" />
+
+        <ImageView
+            android:id="@+id/cancel"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:padding="10dp"
+            android:src="@drawable/close" />
+    </RelativeLayout>
+
+    <com.futureskyltd.app.external.CustomEditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toplay"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edittext_bg"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:padding="10dp"
+        android:textColor="@color/textPrimary"
+        android:textSize="@dimen/text_size_small"
+        app:typeface="font_regular.ttf" />
+
+    <com.futureskyltd.app.external.CustomTextView
+        android:id="@+id/reset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:padding="13dp"
+        android:text="@string/reset"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_small"
+        app:textAllCaps="true"
+        app:typeface="font_regular.ttf" />
+
+</RelativeLayout>

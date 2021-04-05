@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/create">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/create"
+            android:overScrollMode="never" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.futureskyltd.app.external.CustomTextView
+        android:id="@+id/create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:clickable="true"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="@string/create_collection"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_large"
+        app:typeface="font_bold.ttf" />
+
+    <include
+        android:id="@+id/nullLay"
+        layout="@layout/null_lay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <include
+        android:id="@+id/progress"
+        layout="@layout/progress_lay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

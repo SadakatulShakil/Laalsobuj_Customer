@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/parentlay">
+
+    <com.futureskyltd.app.external.CustomTextView
+        android:id="@+id/question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textAlignment="viewStart"
+        android:gravity="start"
+        android:text="Q: what are you working?"
+        android:textColor="@color/textPrimary"
+        android:textSize="@dimen/text_size_medium"
+        app:typeface="font_bold.ttf"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="15dp"
+        android:orientation="horizontal">
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="value"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/text_size_medium"
+            app:typeface="font_regular.ttf"/>
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/ans_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/answer"
+            android:visibility="gone"
+            android:layout_marginTop="15dp"
+            android:text="kalidass"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/text_size_small"
+            app:typeface="font_regular.ttf"/>
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/writeanswer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentEnd="true"
+            android:text="@string/write_answer"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_medium"
+            android:visibility="gone"
+            app:typeface="font_regular.ttf"
+            android:layout_gravity="right"/>
+
+    </RelativeLayout>
+    <com.futureskyltd.app.external.CustomTextView
+        android:id="@+id/readother"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:text="@string/read_answer"
+        android:layout_marginBottom="15dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_size_medium"
+        android:visibility="visible"
+        app:typeface="font_regular.ttf"
+        android:layout_gravity="start"/>
+
+
+</LinearLayout>

@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="@color/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ActivityToolbar"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <include
+            android:id="@+id/actionbar"
+            layout="@layout/actionbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="5dp"
+        android:layout_below="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="@string/layout_direction"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/languageLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/languageText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/language"
+                    android:textAllCaps="true"
+                    android:textColor="@color/textLight"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/languageText"
+                    android:background="@color/bg" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/language"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@id/view1"
+                    android:padding="15dp"
+                    android:text="English"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_regular.ttf" />
+
+                <ImageView
+                    android:id="@+id/langTick"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/view1"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/tick_color" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/currencyLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/currencyText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/currency"
+                    android:textColor="@color/textLight"
+                    android:textSize="@dimen/text_size_medium"
+                    app:textAllCaps="true"
+                    app:typeface="font_regular.ttf" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/currencyText"
+                    android:background="@color/bg" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/currency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@id/view2"
+                    android:padding="15dp"
+                    android:text="USD"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_regular.ttf" />
+
+                <ImageView
+                    android:id="@+id/curnTick"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/view2"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/tick_color" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/emailLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/emailText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/email"
+                    android:textColor="@color/textLight"
+                    android:textSize="@dimen/text_size_small"
+                    app:textAllCaps="true"
+                    app:typeface="font_regular.ttf" />
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/emailText"
+                    android:background="@color/bg" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_below="@id/view3"
+                    android:layout_toStartOf="@+id/emailSwitch"
+                    android:padding="15dp"
+                    android:text="@string/when_someone_follow"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_regular.ttf" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/emailSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/view3"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="10dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:theme="@style/SwitchTheme" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/notification"
+                    android:textColor="@color/textLight"
+                    android:textSize="@dimen/text_size_small"
+                    app:textAllCaps="true"
+                    app:typeface="font_regular.ttf" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bg" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="15dp">
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/notificationSwitch1"
+                        android:text="@string/when_someone_follow"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/notificationSwitch1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:theme="@style/SwitchTheme" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@color/bg" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="15dp">
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/notificationSwitch2"
+                        android:text="@string/when_someone_mention"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/notificationSwitch2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:theme="@style/SwitchTheme" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@color/bg" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="15dp">
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/notificationSwitch3"
+                        android:text="@string/when_product_added_following_store"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/notificationSwitch3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:theme="@style/SwitchTheme" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@color/bg" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="15dp">
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/notificationSwitch4"
+                        android:text="@string/when_receive_news"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/notificationSwitch4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:theme="@style/SwitchTheme" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

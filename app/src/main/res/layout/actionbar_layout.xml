@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/top"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:layoutDirection="ltr"
+    android:minHeight="?attr/actionBarSize"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:id="@+id/navBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:padding="10dp"
+        android:src="@drawable/nav"
+        android:visibility="invisible"
+        app:tint="@color/white" />
+
+    <ImageView
+        android:id="@+id/backBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:padding="10dp"
+        android:src="@drawable/back"
+        android:visibility="invisible" />
+
+    <com.futureskyltd.app.external.CustomTextView
+        app:typeface="font_bold.ttf"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/backBtn"
+        android:layout_centerVertical="true"
+        android:paddingStart="3dp"
+        android:paddingEnd="3dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_header" />
+
+    <ImageView
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:scaleType="fitStart"
+        android:layout_toEndOf="@+id/backBtn"
+        android:layout_centerVertical="true"
+        android:src="@drawable/app_name"
+        android:paddingStart="5dp"
+        android:paddingEnd="3dp"
+        android:visibility="invisible"/>
+
+    <RelativeLayout
+        android:id="@+id/abItemLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/backBtn"
+        android:layout_toStartOf="@+id/cartBtn"
+        android:layout_marginEnd="3dp"
+        android:layout_marginStart="3dp"
+        android:layout_centerVertical="true"
+        android:visibility="gone">
+
+        <com.futureskyltd.app.external.RoundedImageView
+            android:id="@+id/abItemImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="centerCrop"
+            android:layout_marginEnd="10dp"
+            android:background="@mipmap/appicon_round"
+            app:corner_radius="100dip"
+            app:round_background="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/abItemImage"
+            android:layout_marginEnd="5dp"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <com.futureskyltd.app.external.CustomTextView
+                app:typeface="font_bold.ttf"
+                android:id="@+id/abItemName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textSize="@dimen/text_size_medium"
+                android:text=""
+                android:textColor="@color/white"/>
+
+            <com.futureskyltd.app.external.CustomTextView
+                app:typeface="font_regular.ttf"
+                android:id="@+id/abShopName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:layout_marginTop="3dp"
+                android:textSize="@dimen/text_size_medium"
+                android:text=""
+                android:textColor="@color/white"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/likedBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/notifyBtn"
+        android:layout_gravity="center_vertical"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:padding="10dp"
+        android:layout_marginEnd="3dp"
+        android:src="@drawable/heart"
+        android:tint="@color/white"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/notifyBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/cartBtn"
+        android:layout_gravity="center_vertical"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:padding="9dp"
+        android:layout_marginEnd="3dp"
+        android:src="@drawable/notification_icon"
+        android:tint="@color/white"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:id="@+id/notiBadgeLay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="3dp"
+        android:layout_alignEnd="@+id/notifyBtn"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/notibadgeBg"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerInParent="true"
+            android:visibility="visible"
+            android:src="@drawable/filled_blue_circle"
+            android:tint="@color/white"/>
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_bold.ttf"
+            android:id="@+id/notiBadgeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="0"
+            android:textColor="@color/colorPrimary"
+            android:textSize="8sp" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/searchBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/cartBtn"
+        android:layout_gravity="center_vertical"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:padding="10dp"
+        android:layout_marginEnd="3dp"
+        android:src="@drawable/search_icon"
+        android:tint="@color/white"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/cartBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center_vertical"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:padding="10dp"
+        android:layout_marginEnd="6dp"
+        android:src="@drawable/cart"
+        android:tint="@color/white"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:id="@+id/cartBadgeLay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="3dp"
+        android:layout_alignEnd="@+id/cartBtn"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/cartbadgeBg"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerInParent="true"
+            android:visibility="visible"
+            android:src="@drawable/filled_blue_circle"
+            android:tint="@color/white"/>
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_bold.ttf"
+            android:id="@+id/cartBadgeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="0"
+            android:textColor="@color/colorPrimary"
+            android:textSize="8sp" />
+
+    </RelativeLayout>
+
+    <com.futureskyltd.app.external.CustomTextView
+        app:typeface="font_bold.ttf"
+        android:id="@+id/writeComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        android:paddingStart="9dp"
+        android:paddingEnd="9dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:text="@string/write_a_comment"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_small"
+        android:visibility="invisible"/>
+
+    <com.futureskyltd.app.external.CustomTextView
+        app:typeface="font_bold.ttf"
+        android:id="@+id/saveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="5dp"
+        android:background="?attr/selectableItemBackground"
+        android:padding="10dp"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_small"
+        android:visibility="invisible"/>
+
+    <com.futureskyltd.app.external.CustomTextView
+        app:typeface="font_bold.ttf"
+        android:id="@+id/accept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/attachBtn"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        android:paddingStart="9dp"
+        android:paddingEnd="9dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:background="@drawable/white_stroke_corner"
+        android:text="@string/accept"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_medium"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/attachBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center_vertical"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:padding="10dp"
+        android:layout_marginEnd="6dp"
+        android:src="@drawable/attach_white"
+        android:tint="@color/white"
+        android:visibility="gone" />
+</RelativeLayout>

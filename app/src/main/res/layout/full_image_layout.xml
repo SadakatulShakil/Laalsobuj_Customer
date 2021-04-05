@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentLay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/imagePager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true" />
+
+    <ImageView
+        android:id="@+id/cancelBtn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="5dp"
+        android:src="@drawable/cancel" />
+</RelativeLayout>

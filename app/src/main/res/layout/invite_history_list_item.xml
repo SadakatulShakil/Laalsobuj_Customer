@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:layoutDirection="@string/layout_direction"
+    android:orientation="vertical"
+    android:paddingEnd="15dp"
+    android:paddingStart="15dp">
+
+    <View
+        android:id="@+id/topView"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_alignBottom="@+id/circleImg"
+        android:background="@color/divider" />
+
+    <ImageView
+        android:id="@+id/circleImg"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/filled_blue_circle" />
+
+    <View
+        android:id="@+id/bottomView"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/circleImg"
+        android:background="@color/divider" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@+id/circleImg"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingEnd="5dp">
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20 jan 2017"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_regular.ttf" />
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="User name"
+                android:textColor="@color/textPrimary"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_bold.ttf" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/creditLay"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:layout_weight="1.2"
+            android:gravity="top"
+            android:orientation="horizontal">
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/credit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/price"
+                android:paddingEnd="3dp"
+                android:text="@string/credit"
+                android:textColor="@color/textSecondary"
+                android:textSize="@dimen/text_size_medium"
+                app:typeface="font_regular.ttf" />
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:gravity="end"
+                android:text="$ 0"
+                android:textColor="@color/textPrimary"
+                android:textSize="@dimen/text_size_medium"
+                app:typeface="font_bold.ttf" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

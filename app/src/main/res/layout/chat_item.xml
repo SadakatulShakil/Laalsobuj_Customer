@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layoutDirection="ltr"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/dateLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:background="@color/divider" />
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:padding="10dp"
+            android:text="Jan 1st 2015"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/text_size_small"
+            app:typeface="font_regular.ttf" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/leftLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp">
+
+        <com.futureskyltd.app.external.RoundedImageView
+            android:id="@+id/leftImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:adjustViewBounds="true"
+            android:background="@mipmap/appicon_round"
+            android:scaleType="centerCrop"
+            app:corner_radius="100dp"
+            app:round_background="true" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="80dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@+id/leftImage"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/leftCorner"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/chat_left_corner" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/leftCorner"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="1dp"
+                android:background="#e5ebef"
+                android:minWidth="65dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/left_image"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/leftMsg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="5dp"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="8dp"
+                    android:text="Reference site about lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    android:visibility="visible"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/leftTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="center_vertical"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:paddingStart="10dp"
+                    android:text="4.30 PM"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/menu_text_size_small"
+                    app:typeface="font_regular.ttf" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rightLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp">
+
+        <com.futureskyltd.app.external.RoundedImageView
+            android:id="@+id/rightImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:adjustViewBounds="true"
+            android:background="@mipmap/appicon_round"
+            android:scaleType="centerCrop"
+            android:visibility="visible"
+            app:corner_radius="100dp"
+            app:round_background="true" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="15dp"
+            android:layout_toStartOf="@+id/rightImage"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/rightCorner"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/chat_right_corner" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/rightCorner"
+                android:layout_alignTop="@+id/rightCorner"
+                android:layout_marginEnd="3dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/colorPrimary"
+                android:minWidth="65dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/right_image"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/rightMsg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="5dp"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="8dp"
+                    android:text="hi"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/rightTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:paddingStart="10dp"
+                    android:text="4.30 PM"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/menu_text_size_small"
+                    app:typeface="font_regular.ttf" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

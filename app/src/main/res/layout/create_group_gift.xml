@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutDirection="ltr"
+        android:layout_gravity="top"
+        android:background="@color/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/actionbar"
+                layout="@layout/actionbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:paddingEnd="15dp">
+
+                <com.futureskyltd.app.external.RoundedImageView
+                    android:id="@+id/itemImage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@color/divider"
+                    android:scaleType="centerCrop"
+                    app:corner_radius="100dip"
+                    app:round_background="true" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/itemName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="15dp"
+                    android:maxLines="2"
+                    android:maxWidth="120dp"
+                    android:text="item name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/recipientLay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/recipientTick"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/tick"
+                android:visibility="gone" />
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/recipient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/choose_recipient"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_regular.ttf" />
+
+            <ImageView
+                android:id="@+id/recipientArrow"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="-5dp"
+                android:src="@drawable/triangle" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/personalizeLay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/personalizeTick"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/tick"
+                android:visibility="gone" />
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/personalize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/personalize"
+                android:textColor="@color/opct_white"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_regular.ttf" />
+
+            <ImageView
+                android:id="@+id/personalizeArrow"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="-5dp"
+                android:src="@drawable/triangle"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/contributionLay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/contributionTick"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/tick"
+                android:visibility="gone" />
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/contribution"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/contributions"
+                android:textColor="@color/opct_white"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_regular.ttf" />
+
+            <ImageView
+                android:id="@+id/contributionArrow"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="-5dp"
+                android:src="@drawable/triangle"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottomLay"
+        android:layout_below="@+id/tabLayout"
+        android:background="@color/bg"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layoutDirection="@string/layout_direction">
+
+            <LinearLayout
+                android:id="@+id/recipientDetailLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <com.futureskyltd.app.external.CustomAutoCompleteTextView
+                    android:id="@+id/recipientName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_bg"
+                    android:hint="@string/recipient_email"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="30"
+                    android:padding="15dp"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/fullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_bg"
+                    android:hint="@string/full_name"
+                    android:inputType="text"
+                    android:maxLength="30"
+                    android:padding="15dp"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/addressLine1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_bg"
+                    android:hint="@string/address_line1"
+                    android:inputType="text"
+                    android:maxLength="30"
+                    android:padding="15dp"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/addressLine2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_bg"
+                    android:hint="@string/address_line2"
+                    android:inputType="text"
+                    android:maxLength="30"
+                    android:padding="15dp"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:orientation="horizontal">
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/country"
+                        android:layout_width="0dp"
+                        android:layout_height="46dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittext_bg"
+                        android:dropDownWidth="match_parent"
+                        android:hint="@string/country"
+                        android:padding="15dp"
+                        android:singleLine="true"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_small"
+                        app:typeface="font_regular.ttf"/>
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/divider" />
+
+                    <com.futureskyltd.app.external.CustomEditText
+                        android:id="@+id/state"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittext_bg"
+                        android:hint="@string/state"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:padding="15dp"
+                        android:singleLine="true"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_small"
+                        app:typeface="font_regular.ttf" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.futureskyltd.app.external.CustomEditText
+                        android:id="@+id/city"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittext_bg"
+                        android:hint="@string/city"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:padding="15dp"
+                        android:singleLine="true"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_small"
+                        app:typeface="font_regular.ttf" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/divider" />
+
+                    <com.futureskyltd.app.external.CustomEditText
+                        android:id="@+id/zipcode"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittext_bg"
+                        android:hint="@string/zipcode"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:padding="15dp"
+                        android:singleLine="true"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_small"
+                        app:typeface="font_regular.ttf" />
+                </LinearLayout>
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_bg"
+                    android:digits="+0123456789"
+                    android:hint="@string/phone_no"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
+                    android:inputType="phone"
+                    android:maxLength="20"
+                    android:padding="15dp"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/personalizeDetailLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/giftTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_bg"
+                    android:hint="@string/gift_title"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/giftMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="top"
+                    android:hint="@string/gift_message"
+                    android:inputType="textMultiLine"
+                    android:padding="15dp"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/giftNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@color/white"
+                    android:gravity="top"
+                    android:hint="@string/gift_note"
+                    android:inputType="textMultiLine"
+                    android:padding="15dp"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@color/bg" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:padding="15dp"
+                        android:text="@string/order_summary"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_small"
+                        app:typeface="font_regular.ttf" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/bg" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingEnd="15dp"
+                        android:paddingStart="15dp"
+                        android:paddingTop="15dp">
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.35"
+                            android:text="@string/price"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_small"
+                            app:typeface="font_regular.ttf" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/itemPrice"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.65"
+                            android:gravity="end"
+                            android:text="$0"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_small"
+                            app:typeface="font_regular.ttf" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingEnd="15dp"
+                        android:paddingStart="15dp"
+                        android:paddingTop="15dp">
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.35"
+                            android:text="@string/shipping_fee"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_small"
+                            app:typeface="font_regular.ttf" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/shippingPrice"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.65"
+                            android:gravity="end"
+                            android:text="$0"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_small"
+                            app:typeface="font_regular.ttf" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingEnd="15dp"
+                        android:paddingStart="15dp"
+                        android:paddingTop="15dp">
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.35"
+                            android:text="@string/tax"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_small"
+                            app:typeface="font_regular.ttf" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/taxPrice"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.65"
+                            android:gravity="end"
+                            android:text="$0"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_small"
+                            app:typeface="font_regular.ttf" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/bg" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="15dp">
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.35"
+                            android:text="@string/payable_amount"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_small"
+                            app:typeface="font_regular.ttf" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/grandTotal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.65"
+                            android:gravity="end"
+                            android:textSize="@dimen/text_size_small"
+                            android:text="$0"
+                            android:textColor="@color/textPrimary"
+                            app:typeface="font_regular.ttf" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:background="@color/bg" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/contributionDetailLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.futureskyltd.app.external.CustomAutoCompleteTextView
+                        android:id="@+id/editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="start"
+                        android:hint="@string/add_fantacy_users"
+                        android:maxLength="180"
+                        android:paddingBottom="10dp"
+                        android:paddingEnd="15dp"
+                        android:paddingStart="50dp"
+                        android:paddingTop="20dp"
+                        android:textColor="@color/textSecondary"
+                        android:textColorHint="@color/textLight"
+                        android:textSize="@dimen/text_size_small" />
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/plus_orange" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bg" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:clipToPadding="false" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/share"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:background="@color/orange"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="@string/share_with_users"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_bold.ttf" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@color/bg" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="15dp">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/share" />
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/shareOthers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/ask_your_friends_to_contirbute"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_small"
+                        app:typeface="font_regular.ttf" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@color/bg" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottomLay"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/toolbar_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/elevation" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/cancelBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/textPrimary"
+                android:clickable="true"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="@string/cancel"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_bold.ttf" />
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/continueBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:clickable="true"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="@string/continu"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_bold.ttf" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <include
+        android:id="@+id/progress"
+        layout="@layout/progress_lay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <include
+        android:id="@+id/nullLay"
+        layout="@layout/null_lay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+</RelativeLayout>

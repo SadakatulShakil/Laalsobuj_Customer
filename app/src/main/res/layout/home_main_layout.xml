@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/mScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/mainLay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layoutDirection="@string/layout_direction"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/categoryList"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:clipToPadding="false"
+                        android:paddingBottom="5dp"/>
+                </LinearLayout>
+
+
+                <com.futureskyltd.app.external.AutoScrollViewPager
+                    android:id="@+id/bannerPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:clipToPadding="false"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="visible" />
+
+                <RelativeLayout
+                    android:id="@+id/dealLay"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/dealBg">
+
+                    <LinearLayout
+                        android:layout_width="170dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical">
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/deal_of_day"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_small"
+                            app:typeface="font_bold.ttf" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:lineSpacingExtra="3dp"
+                            android:paddingEnd="10dp"
+                            android:paddingStart="10dp"
+                            android:text="@string/grap_best_deal"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_small"
+                            app:typeface="font_regular.ttf" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/timer" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/dealTimer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingEnd="10dp"
+                            android:paddingStart="10dp"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_medium"
+                            app:typeface="font_bold.ttf" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
+                            android:paddingEnd="10dp"
+                            android:paddingStart="10dp"
+                            android:text="Hrs   Min   Sec"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_small"
+                            app:typeface="font_regular.ttf" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/dealAll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/white"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:paddingBottom="5dp"
+                            android:paddingEnd="25dp"
+                            android:paddingStart="25dp"
+                            android:paddingTop="5dp"
+                            android:text="@string/view_all"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_small"
+                            app:typeface="font_regular.ttf" />
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/dealList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:clipToPadding="false" />
+
+                    <View
+                        android:id="@+id/dealView"
+                        android:layout_width="170dp"
+                        android:layout_height="50dp"
+                        android:layout_alignBottom="@+id/dealList" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/popularLay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/popular_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/popular_products"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_large"
+                            app:typeface="font_bold.ttf" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/popularAll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:background="@color/colorPrimary"
+                            android:gravity="center"
+                            android:paddingBottom="7dp"
+                            android:paddingEnd="14dp"
+                            android:paddingStart="14dp"
+                            android:paddingTop="7dp"
+                            android:text="@string/view_all"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_very_small"
+                            app:typeface="font_regular.ttf" />
+                    </RelativeLayout>
+
+                    <!--<View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/divider" />-->
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/popularList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/recentLay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/recent_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/new_arrivals"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_large"
+                            app:typeface="font_bold.ttf" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/recentAll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:background="@color/colorPrimary"
+                            android:gravity="center"
+                            android:paddingBottom="7dp"
+                            android:paddingEnd="14dp"
+                            android:paddingStart="14dp"
+                            android:paddingTop="7dp"
+                            android:text="@string/view_all"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_very_small"
+                            app:typeface="font_regular.ttf" />
+                    </RelativeLayout>
+
+                    <!--<View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/divider" />-->
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recentList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/featuredLay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/feature_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/featured"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_large"
+                            app:typeface="font_bold.ttf" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/featuredAll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:background="@color/colorPrimary"
+                            android:gravity="center"
+                            android:paddingBottom="7dp"
+                            android:paddingEnd="14dp"
+                            android:paddingStart="14dp"
+                            android:paddingTop="7dp"
+                            android:text="@string/view_all"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_very_small"
+                            app:typeface="font_regular.ttf" />
+                    </RelativeLayout>
+
+                    <!--<View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/divider" />-->
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/featuredList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/storeLay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/store_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/popular_store"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_large"
+                            app:typeface="font_bold.ttf" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/storeAll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:background="@color/colorPrimary"
+                            android:gravity="center"
+                            android:paddingBottom="7dp"
+                            android:paddingEnd="14dp"
+                            android:paddingStart="14dp"
+                            android:paddingTop="7dp"
+                            android:text="@string/view_all"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_very_small"
+                            app:typeface="font_regular.ttf" />
+                    </RelativeLayout>
+
+                    <!--<View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/divider" />-->
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/storeList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/discountlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/discount_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/discount"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_large"
+                            app:typeface="font_bold.ttf" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/discountall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:background="@color/colorPrimary"
+                            android:gravity="center"
+                            android:paddingBottom="7dp"
+                            android:paddingEnd="14dp"
+                            android:paddingStart="14dp"
+                            android:paddingTop="7dp"
+                            android:text="@string/view_all"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_very_small"
+                            app:typeface="font_regular.ttf" />
+                    </RelativeLayout>
+
+                    <!--<View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/divider" />-->
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/discountList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/suggestlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/suggest_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Suggest Items"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_large"
+                            app:typeface="font_bold.ttf" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/suggestall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:background="@color/colorPrimary"
+                            android:gravity="center"
+                            android:paddingBottom="7dp"
+                            android:paddingEnd="14dp"
+                            android:paddingStart="14dp"
+                            android:paddingTop="7dp"
+                            android:text="@string/view_all"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_very_small"
+                            app:typeface="font_regular.ttf" />
+                    </RelativeLayout>
+
+                    <!--<View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/divider" />-->
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/suggest_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/categoryproductlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/cateproduct_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Category Products"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_large"
+                            app:typeface="font_bold.ttf" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/categoryproall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:background="@color/colorPrimary"
+                            android:gravity="center"
+                            android:paddingBottom="7dp"
+                            android:paddingEnd="14dp"
+                            android:paddingStart="14dp"
+                            android:paddingTop="7dp"
+                            android:text="@string/view_all"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_very_small"
+                            app:typeface="font_regular.ttf" />
+                    </RelativeLayout>
+
+                    <!--<View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/divider" />-->
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/categoryproductview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ratedproductlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/toprate_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Top Rated"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_large"
+                            app:typeface="font_bold.ttf" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/toprateall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:background="@color/colorPrimary"
+                            android:gravity="center"
+                            android:paddingBottom="7dp"
+                            android:paddingEnd="14dp"
+                            android:paddingStart="14dp"
+                            android:paddingTop="7dp"
+                            android:text="@string/view_all"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_very_small"
+                            app:typeface="font_regular.ttf" />
+                    </RelativeLayout>
+
+                    <!--<View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/divider" />
+-->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/toprateview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/nullLay"
+        layout="@layout/null_lay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <include
+        android:id="@+id/progress"
+        layout="@layout/progress_lay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

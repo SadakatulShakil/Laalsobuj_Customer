@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLay"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_gravity="top"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+
+        <include
+            android:id="@+id/actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/actionbar_layout" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/contentLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_below="@+id/toolbar"
+        android:padding="15dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <com.futureskyltd.app.external.RoundedImageView
+            android:id="@+id/itemImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="centerCrop"
+            android:background="@mipmap/appicon_round"
+            app:corner_radius="100dip"
+            app:round_background="true"/>
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_regular.ttf"
+            android:id="@+id/itemName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/text_size_medium"
+            android:text="item name"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:visibility="gone"
+        android:background="@color/bg"
+        android:layout_below="@+id/contentLay"/>
+
+    <LinearLayout
+        android:id="@+id/parentlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/contentLay"
+        android:layout_above="@+id/bottomlay"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/allreviewlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:padding="15dp"
+                    android:text="@string/reviewrating"
+                    android:textColor="@color/textSecondary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_regular.ttf" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp">
+
+                <LinearLayout
+                    android:id="@+id/leftlay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/averagerating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:layout_gravity="center"
+                            android:text="4.4"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="24sp"
+                            app:typeface="font_bold.ttf" />
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:clickable="true"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:src="@drawable/starbold"/>
+
+                    </LinearLayout>
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/totalrating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:layout_gravity="left"
+                        android:layout_marginTop="2dp"
+                        android:text="0 reviews"
+                        android:textColor="@color/textSecondary"
+                        android:textSize="@dimen/text_size_small"
+                        app:typeface="font_regular.ttf" />
+
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/totalreview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:layout_gravity="left"
+                        android:layout_marginTop="2dp"
+                        android:text="15 reviews"
+                        android:textColor="@color/textSecondary"
+                        android:textSize="@dimen/text_size_small"
+                        app:typeface="font_regular.ttf" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/rightlay"
+                    android:layout_alignTop="@id/rightlay"
+                    android:layout_toEndOf="@+id/leftlay"
+                    android:layout_toStartOf="@+id/rightlay"
+                    android:padding="20dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/divider"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/rightlay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:layout_width="8dp"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:layout_gravity="center"
+                            android:text="5"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_very_small"
+                            android:layout_marginRight="4dp"
+                            app:typeface="font_bold.ttf" />
+
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/starbold"/>
+
+                        <ProgressBar
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressTint="@color/green_progress"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/rat5progress"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:max="100"
+                            android:progress="45"/>
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/rat5_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:layout_gravity="center"
+                            android:text="5"
+                            android:textColor="@color/textSecondary"
+                            android:textSize="@dimen/text_size_very_small"
+                            app:typeface="font_regular.ttf" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/rat4"
+                            android:layout_width="8dp"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="4dp"
+                            android:text="4"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_very_small"
+                            app:typeface="font_bold.ttf" />
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/starbold"/>
+
+
+                        <ProgressBar
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressTint="@color/green_progress"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/rat4progress"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:max="100"
+                            android:progress="45"/>
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/rat4_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:layout_gravity="center"
+                            android:text="5"
+                            android:textColor="@color/textSecondary"
+                            android:textSize="@dimen/text_size_very_small"
+                            app:typeface="font_regular.ttf" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/rat3"
+                            android:layout_width="8dp"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="4dp"
+                            android:text="3"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_very_small"
+                            app:typeface="font_bold.ttf" />
+
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/starbold"/>
+
+                        <ProgressBar
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressTint="@color/green_progress"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/rat3progress"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:max="100"
+                            android:progress="45"/>
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/rat3_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:layout_gravity="center"
+                            android:text="2"
+                            android:textColor="@color/textSecondary"
+                            android:textSize="@dimen/text_size_very_small"
+                            app:typeface="font_regular.ttf" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/rat2"
+                            android:layout_width="8dp"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="4dp"
+                            android:text="2"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_very_small"
+                            app:typeface="font_bold.ttf" />
+
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/starbold"/>
+
+
+                        <ProgressBar
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressTint="@color/yellow"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/rat2progress"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:max="100"
+                            android:progress="45"/>
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/rat2_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:layout_gravity="center"
+                            android:text="4"
+                            android:textColor="@color/textSecondary"
+                            android:textSize="@dimen/text_size_very_small"
+                            app:typeface="font_regular.ttf" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/rat1"
+                            android:layout_width="8dp"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="4dp"
+                            android:text="1"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="@dimen/text_size_very_small"
+                            app:typeface="font_bold.ttf"
+                            />
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/starbold"/>
+
+
+
+                        <ProgressBar
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressTint="#FF0000"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/rat1progress"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:max="100"
+                            android:progress="45"
+                            />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/rat1_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:layout_gravity="center"
+                            android:text="4"
+                            android:textColor="@color/textSecondary"
+                            android:textSize="@dimen/text_size_very_small"
+                            app:typeface="font_regular.ttf" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/commentList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:background="@color/white"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"/>
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/nullLay"
+        layout="@layout/null_lay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <include
+        android:id="@+id/progress"
+        layout="@layout/progress_lay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottomlay"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bg"/>
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/postanswer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/post_answer"
+            android:background="@color/white"
+            android:padding="15dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_medium"
+            android:gravity="center"
+            android:visibility="visible"
+            app:typeface="font_regular.ttf"
+            />
+
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

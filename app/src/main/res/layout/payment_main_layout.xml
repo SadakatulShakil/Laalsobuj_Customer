@@ -1,0 +1,821 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/divider"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="@color/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ActivityToolbar"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <include
+            android:id="@+id/actionbar"
+            layout="@layout/actionbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/checkout"
+        android:layout_below="@+id/toolbar">
+
+        <LinearLayout
+            android:id="@id/mainLay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/divider"
+            android:layoutDirection="@string/layout_direction"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/coupon"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/cpnApply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:padding="15dp"
+                    android:text="@string/apply"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_regular.ttf" />
+
+                <RelativeLayout
+                    android:id="@+id/couponEnterLay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cpnApply"
+                    android:visibility="gone">
+
+                    <com.futureskyltd.app.external.CustomEditText
+                        android:id="@+id/couponEnter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginStart="15dp"
+                        android:background="@drawable/edittext_bg"
+                        android:hint="@string/coupon_code"
+                        android:inputType="text"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/couponCancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/couponEnter"
+                        android:layout_toStartOf="@+id/couponApply"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:padding="15dp"
+                        android:text="@string/cancel"
+                        android:textColor="@color/textSecondary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/couponApply"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/couponEnter"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:padding="15dp"
+                        android:text="@string/apply"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/divider" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/couponAppliedLay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cpnApply"
+                    android:visibility="gone">
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/appliedCoupon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:background="@drawable/primary_dash_background"
+                        android:paddingBottom="10dp"
+                        android:paddingEnd="15dp"
+                        android:paddingStart="15dp"
+                        android:paddingTop="10dp"
+                        android:text="BSVCSUHWFF"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_small"
+                        app:typeface="font_regular.ttf" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/appliedCoupon"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="10dp"
+                        android:paddingEnd="15dp"
+                        android:paddingStart="15dp"
+                        android:paddingTop="10dp">
+
+                        <ImageView
+                            android:id="@+id/couponTick"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/tick_color" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/couponapplied"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="5dp"
+                            android:text="@string/coupon_applied"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_size_small"
+                            app:typeface="font_regular.ttf" />
+                    </LinearLayout>
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/couponEdit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:paddingBottom="10dp"
+                        android:paddingEnd="15dp"
+                        android:paddingStart="15dp"
+                        android:paddingTop="10dp"
+                        android:text="@string/edit"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/couponDelete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/couponEdit"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:paddingBottom="10dp"
+                        android:paddingEnd="15dp"
+                        android:paddingStart="15dp"
+                        android:paddingTop="10dp"
+                        android:text="@string/delete"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/divider" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/gift_card"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/addGift"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:padding="15dp"
+                    android:text="@string/add_new"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_regular.ttf" />
+
+                <RelativeLayout
+                    android:id="@+id/giftEnterLay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/addGift"
+                    android:visibility="gone">
+
+                    <com.futureskyltd.app.external.CustomEditText
+                        android:id="@+id/giftEnter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginStart="15dp"
+                        android:background="@drawable/edittext_bg"
+                        android:hint="@string/voucher_number"
+                        android:inputType="text"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/giftCancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/giftEnter"
+                        android:layout_toStartOf="@+id/giftApply"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:padding="15dp"
+                        android:text="@string/cancel"
+                        android:textColor="@color/textSecondary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/giftApply"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/giftEnter"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:padding="15dp"
+                        android:text="@string/apply"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/divider" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/giftAppliedLay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/addGift"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="10dp"
+                        android:paddingEnd="15dp"
+                        android:paddingStart="15dp"
+                        android:paddingTop="10dp">
+
+                        <ImageView
+                            android:id="@+id/giftTick"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/tick_color" />
+
+                        <com.futureskyltd.app.external.CustomTextView
+                            android:id="@+id/appliedGift"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="5dp"
+                            android:text="@string/voucher_applied"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_size_medium"
+                            app:typeface="font_regular.ttf" />
+                    </LinearLayout>
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/giftRemove"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginBottom="10dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:paddingBottom="10dp"
+                        android:paddingEnd="15dp"
+                        android:paddingStart="15dp"
+                        android:paddingTop="10dp"
+                        android:text="@string/remove"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/divider" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/baltext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/credit_balance"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/availablecredit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/baltext"
+                    android:layout_marginTop="3dp"
+                    android:gravity=""
+                    android:text="@string/available"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/useCredit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:text="@string/use"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/creditEnterLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/useCoupon"
+                android:background="@color/white"
+                android:visibility="gone">
+
+                <com.futureskyltd.app.external.CustomEditText
+                    android:id="@+id/creditEnter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/edittext_bg"
+                    android:hint="@string/enter_amount"
+                    android:inputType="numberDecimal"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/maxcredit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/creditEnter"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/allowed_credit"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_small"
+                    android:visibility="gone"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/creditCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/creditEnter"
+                    android:layout_toStartOf="@+id/creditApply"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:padding="15dp"
+                    android:text="@string/cancel"
+                    android:textColor="@color/textSecondary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/creditApply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/creditEnter"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:padding="15dp"
+                    android:text="@string/apply"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/creditAppliedLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:id="@+id/appliedCreditLay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="5dp">
+
+                    <ImageView
+                        android:id="@+id/creditTick"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/tick_color" />
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/appliedCredit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/creditTick"
+                        android:paddingStart="5dp"
+                        android:text="@string/coupon_applied"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_small"
+                        app:typeface="font_regular.ttf" />
+                </RelativeLayout>
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/creditEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:paddingBottom="5dp"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="5dp"
+                    android:text="@string/edit"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/creditRemove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/creditEdit"
+                    android:layout_marginBottom="10dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="5dp"
+                    android:text="@string/remove"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/order_summary"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="@dimen/text_size_medium"
+                    app:typeface="font_regular.ttf" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="15dp">
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:text="@string/price"
+                        android:id="@+id/txtPrice"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/itemPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.65"
+                        android:gravity="end"
+                        android:text="$0"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="15dp">
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:text="@string/shipping_fee"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/shippingPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.65"
+                        android:gravity="end"
+                        android:text="$0"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="15dp">
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:text="@string/tax"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/taxPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.65"
+                        android:gravity="end"
+                        android:text="$0"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/discountLay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingTop="15dp">
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/discounttext"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:text="@string/discount"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/discountPrice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.65"
+                        android:gravity="end"
+                        android:text="-$0"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/bg" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="15dp">
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.35"
+                        android:text="@string/payable_amount"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:id="@+id/grandTotal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.65"
+                        android:gravity="end"
+                        android:text="$0"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_regular.ttf" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/paymentLay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/codLay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:padding="15dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/codIcon"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/radio_unselect" />
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:paddingStart="10dp"
+                        android:text="@string/cash_on_delivery"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_bold.ttf" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/instantLay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:padding="15dp">
+
+                    <ImageView
+                        android:id="@+id/instantIcon"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/radio_unselect" />
+
+                    <com.futureskyltd.app.external.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:paddingStart="10dp"
+                        android:text="@string/instant_pay"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:typeface="font_bold.ttf" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/nullLay"
+        layout="@layout/null_lay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <com.futureskyltd.app.external.CustomTextView
+        android:id="@+id/checkout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:clickable="true"
+        android:gravity="center"
+        android:paddingBottom="17dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="17dp"
+        android:text="@string/checkout"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_large"
+        app:typeface="font_bold.ttf" />
+
+</RelativeLayout>

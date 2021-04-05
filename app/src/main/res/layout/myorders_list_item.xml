@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainLay"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="@string/layout_direction"
+    android:padding="15dp"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/itemImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:layout_alignParentEnd="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/itemImage"
+        android:orientation="vertical">
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_regular.ttf"
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textSize="@dimen/text_size_small"
+            android:text="Pending"
+            android:textColor="@color/colorPrimary"/>
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_regular.ttf"
+            android:id="@+id/itemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:textAlignment="gravity"
+            android:maxLines="2"
+            android:textSize="@dimen/text_size_medium"
+            android:text="@string/grap_best_deal"
+            android:textColor="@color/textPrimary"/>
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_regular.ttf"
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:textSize="@dimen/text_size_small"
+            android:text="12 Jan 2017"
+            android:textColor="@color/textSecondary"/>
+    </LinearLayout>
+
+</RelativeLayout>

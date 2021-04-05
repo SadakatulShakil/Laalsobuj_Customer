@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layoutDirection="@string/layout_direction">
+
+    <RelativeLayout
+        android:id="@+id/mainLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <!--android:background="@drawable/store_placeholder"-->
+     <!--   <com.hitasoft.app.external.RoundedImageView
+            android:id="@+id/storeImage"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:scaleType="centerCrop"
+            app:corner_radius="100dip"
+            app:round_background="true"
+            app:border_color="@color/divider"
+            app:border_width="1dp"/>
+-->
+        <ImageView
+            android:id="@+id/storeImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:paddingTop="0dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"/>
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_regular.ttf"
+            android:id="@+id/itemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/storeImage"
+            android:singleLine="true"
+            android:textSize="@dimen/text_size_small"
+            android:text="@string/grap_best_deal"
+            android:textColor="@color/textPrimary"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

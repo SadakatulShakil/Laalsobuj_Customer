@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLay"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="@string/layout_direction">
+
+    <RelativeLayout
+        android:id="@+id/introLay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/introBottomLay"
+            android:background="@color/colorPrimary">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/gift_card_white"/>
+
+                <com.futureskyltd.app.external.CustomTextView
+                    app:typeface="font_bold.ttf"
+                    android:id="@+id/giftText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:paddingStart="25dp"
+                    android:paddingEnd="25dp"
+                    android:textSize="24sp"
+                    android:text="Fantacy Gift card"
+                    android:textColor="@color/white"/>
+
+                <com.futureskyltd.app.external.CustomTextView
+                    app:typeface="font_regular.ttf"
+                    android:id="@+id/giftDes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lineSpacingExtra="3dp"
+                    android:paddingStart="25dp"
+                    android:paddingEnd="25dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="30dp"
+                    android:textSize="@dimen/text_size_medium"
+                    android:text="@string/gift_card_des"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/introBottomLay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:padding="15dp"
+            android:background="@color/white">
+
+            <Spinner
+                android:id="@+id/selectValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:prompt="@string/select_value"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:dropDownWidth="match_parent"
+                android:dropDownAnchor="@+id/spinView"/>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/selectValue"
+                android:background="@color/divider"/>
+
+            <com.futureskyltd.app.external.CustomAutoCompleteTextView
+                app:typeface="font_regular.ttf"
+                android:id="@+id/recipientName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view"
+                android:background="@drawable/edittext_bg"
+                android:hint="@string/recipient_name"
+                android:inputType="textEmailAddress"
+                android:padding="15dp"
+                android:maxLength="30"
+                android:textSize="@dimen/text_size_medium"
+                android:textColor="@color/textPrimary"/>
+
+            <com.futureskyltd.app.external.CustomEditText
+                app:typeface="font_regular.ttf"
+                android:id="@+id/message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/recipientName"
+                android:background="@color/white"
+                android:hint="@string/type_your_message"
+                android:inputType="textMultiLine"
+                android:maxLength="250"
+                android:padding="15dp"
+                android:textSize="@dimen/text_size_medium"
+                android:textColor="@color/textPrimary"/>
+
+            <com.futureskyltd.app.external.CustomTextView
+                app:typeface="font_bold.ttf"
+                android:id="@+id/payNow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/message"
+                android:layout_marginTop="30dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:clickable="true"
+                android:padding="12dp"
+                android:textSize="@dimen/text_size_large"
+                android:text="@string/pay_now"
+                android:textColor="@color/colorPrimary"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/progress"
+        layout="@layout/progress_lay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <include
+        android:id="@+id/nullLay"
+        layout="@layout/null_lay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

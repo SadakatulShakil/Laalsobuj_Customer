@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainLay"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="@string/layout_direction"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <com.futureskyltd.app.external.RoundedImageView
+        android:id="@+id/itemImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="15dp"
+        android:background="@mipmap/appicon_round"
+        android:scaleType="centerCrop"
+        android:layout_alignParentStart="true"
+        app:corner_radius="100dip"
+        app:round_background="true" />
+
+    <com.futureskyltd.app.external.CustomTextView
+        android:id="@+id/itemName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/itemImage"
+        android:layout_toStartOf="@+id/date"
+        android:text="Item name"
+        android:textColor="@color/textPrimary"
+        android:textSize="@dimen/text_size_medium"
+        app:typeface="font_bold.ttf" />
+
+    <com.futureskyltd.app.external.CustomTextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:text="22 Jan 2017"
+        android:textColor="@color/textSecondary"
+        android:textSize="@dimen/text_size_small"
+        app:typeface="font_regular.ttf" />
+
+    <com.futureskyltd.app.external.CustomTextView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/itemName"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/itemImage"
+        android:maxLines="2"
+        android:text="Nioe "
+        android:textColor="@color/textSecondary"
+        android:textSize="@dimen/text_size_medium"
+        app:typeface="font_regular.ttf" />
+
+</RelativeLayout>

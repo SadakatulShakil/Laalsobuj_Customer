@@ -1,0 +1,16 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:background="@drawable/abc_popup_background_mtrl_mult">
+
+    <ListView
+        android:id="@+id/listView"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:divider="@null"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

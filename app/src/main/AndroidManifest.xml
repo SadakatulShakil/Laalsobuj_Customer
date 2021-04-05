@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.futureskyltd.app.fantacy">
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="true" />
+
+    <application
+        android:name=".FantacyApplication"
+        android:allowBackup="false"
+        android:configChanges="layoutDirection|locale"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/appicon"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/appicon_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup">
+        <activity android:name=".SignInActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".SignUpActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".OrderPaymentActivity" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity
+            android:name=".SplashActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.futureskyltd.app.fantacy.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity
+            android:name=".FragmentMainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".RecentSearch"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".BarcodeScanner"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".ApiTestActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".DetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".FullImage"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".AllComments"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".WriteComment"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".ContactSeller"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".PostQuestion"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".AllQuestions"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".OtherAnswers"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".ViewAllActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".SellerChat"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".CategoryListings"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".ViewCollection"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".Profile"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".EditProfile"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".StoreProfile"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".CartActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".PaymentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".PaymentStatus"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".ShippingAddress"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".AddAddress"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".Settings"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".FindFriends"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".Dispute"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".DisputeChat"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".LocationNCurrency"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".CreateGroupGift"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".GroupGiftDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".GiftHistory"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".InviteHistory"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".HelpContent"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".ContactUs"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".OrderDetail"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".TrackingDetails"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".WriteReview"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".AllReviews"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".CreateDispute"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".CreateFeed"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".ViewAllStores"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".HashTag"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBarActivity" />
+        <activity
+            android:name=".DeepLinkActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="fantacyscript.com"
+                    android:pathPrefix="/dev/listing"
+                    android:scheme="http" />
+                <data
+                    android:host="fantacyscript.com"
+                    android:pathPrefix="/dev/gifts"
+                    android:scheme="http" />
+                <data
+                    android:host="fantacyscript.com"
+                    android:pathPrefix="/dev/verification"
+                    android:scheme="http" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.wallet.api.enabled"
+            android:value="true" />
+
+        <activity
+            android:name=".WelcomeScreen"
+            android:excludeFromRecents="true"
+            android:theme="@style/DialogTheme" /> <!-- Facebook Declaration -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider245308646001038"
+            android:exported="true" />
+
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="com.hitasoft.app.fantacy.braintree" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".BaseActivity" />
+        <!--
+ <service android:name="com.hitasoft.app.helper.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        -->
+        <service android:name="com.futureskyltd.app.helper.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="my_channel_01" />
+    </application>
+
+</manifest>

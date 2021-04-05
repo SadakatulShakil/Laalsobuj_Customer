@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLay"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_gravity="top"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+
+        <include
+            android:id="@+id/actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/actionbar_layout" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="@string/layout_direction"
+        android:orientation="vertical">
+
+
+        <com.futureskyltd.app.external.CustomEditText
+            app:typeface="font_regular.ttf"
+            android:id="@+id/subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:padding="15dp"
+            android:hint="@string/subject"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/textSecondary"
+            android:textColorHint="@color/textLight"
+            android:background="@color/white"
+            android:visibility="gone"/>
+
+        <View
+            android:id="@+id/subjectView"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/contentLay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:layoutDirection="@string/layout_direction"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+            <com.futureskyltd.app.external.RoundedImageView
+                android:id="@+id/itemImage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@mipmap/appicon_round"
+                android:scaleType="centerCrop"
+                app:corner_radius="100dip"
+                app:round_background="true" />
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/itemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="15dp"
+                android:text="item name"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_medium"
+                app:typeface="font_regular.ttf" />
+        </LinearLayout>
+
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="question"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/text_size_small"
+            android:layout_gravity="start"
+            app:typeface="font_regular.ttf" />
+
+
+        <com.futureskyltd.app.external.CustomEditText
+            app:typeface="font_regular.ttf"
+            android:id="@+id/messageEdit"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:gravity="start"
+            android:textDirection="rtl"
+            android:maxLines="5"
+            android:padding="15dp"
+            android:hint="@string/type_here"
+            android:maxLength="200"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/textSecondary"
+            android:textColorHint="@color/textLight"
+            android:background="@color/white"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"/>
+    </LinearLayout>
+
+</LinearLayout>

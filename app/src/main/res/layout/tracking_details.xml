@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLay"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_gravity="top"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+
+        <include
+            android:id="@+id/actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/actionbar_layout" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="15dp">
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_bold.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="@string/shipping_date"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/text_size_small" />
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_regular.ttf"
+            android:id="@+id/shippingDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:text="12 Jan 2017"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/text_size_small" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="15dp">
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_bold.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shipping_name"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/text_size_small" />
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_regular.ttf"
+            android:id="@+id/shippingName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:text="Blue dart"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/text_size_small" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="15dp">
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_bold.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shipping_service"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/text_size_small" />
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_regular.ttf"
+            android:id="@+id/shippingService"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:text="Blue dart"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/text_size_small" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="15dp">
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_bold.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tracking_id"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/text_size_small" />
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_regular.ttf"
+            android:id="@+id/trackingId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:text="NJBJ938984"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/text_size_small" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="15dp">
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_bold.ttf"
+            android:id="@+id/additionalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/additional_message"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/text_size_small" />
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_regular.ttf"
+            android:id="@+id/additionalMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/additionalText"
+            android:text="NJBJ938984"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/text_size_small" />
+    </RelativeLayout>
+</LinearLayout>

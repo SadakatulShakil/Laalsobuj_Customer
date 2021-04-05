@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:layoutDirection="@string/layout_direction"
+    android:paddingEnd="15dp"
+    android:paddingStart="15dp">
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="1dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="5dp"
+        android:background="@color/divider" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:background="@color/divider"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/circleImg"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_below="@+id/view1"
+        android:src="@drawable/filled_blue_circle" />
+
+    />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@+id/circleImg"
+        android:layout_toStartOf="@+id/debit"
+        android:orientation="vertical">
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/sent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sent"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_medium"
+            app:typeface="font_regular.ttf" />
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="User name"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/text_size_medium"
+            app:typeface="font_bold.ttf" />
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="22 Jan 2017"
+            android:textColor="@color/textLight"
+            android:textSize="@dimen/text_size_small"
+            app:typeface="font_regular.ttf" />
+    </LinearLayout>
+
+    <com.futureskyltd.app.external.CustomTextView
+        android:id="@+id/debit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="25dp"
+        android:layout_toStartOf="@id/price"
+        android:text="@string/debit"
+        android:textColor="@color/textLight"
+        android:textSize="@dimen/text_size_medium"
+        app:typeface="font_regular.ttf" />
+
+    <com.futureskyltd.app.external.CustomTextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="25dp"
+        android:text="$ 0"
+        android:textColor="@color/textPrimary"
+        android:textSize="@dimen/text_size_medium"
+        app:typeface="font_bold.ttf" />
+</RelativeLayout>

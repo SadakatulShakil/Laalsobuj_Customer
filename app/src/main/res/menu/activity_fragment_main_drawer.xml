@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group
+        android:id="@+id/section1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:title="@string/home"
+            android:icon="@drawable/home" />
+        <item
+            android:id="@+id/allCategories"
+            android:icon="@drawable/categories"
+            android:title="@string/all_categories" />
+        <item
+            android:id="@+id/dailyDeals"
+            android:icon="@drawable/deals"
+            android:title="@string/daily_deals" />
+    </group>
+
+    <group
+        android:id="@+id/section2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/myOrders"
+            android:icon="@drawable/orders"
+            android:title="@string/my_orders" />
+        <item
+            android:id="@+id/message"
+            android:icon="@drawable/message"
+            android:title="@string/message"
+            app:actionLayout="@layout/menu_counter"/>
+
+        <item
+            android:id="@+id/notification"
+            android:icon="@drawable/notification"
+            android:title="@string/notifications"
+            app:actionLayout="@layout/menu_counter"/>
+
+        <item
+            android:id="@+id/liveFeeds"
+            android:icon="@drawable/comment"
+            android:title="@string/live_feeds"
+            app:actionLayout="@layout/menu_counter"/>
+
+        <item
+            android:id="@+id/liked"
+            android:icon="@drawable/liked_menu"
+            android:title="@string/liked" />
+        <item
+            android:id="@+id/collection"
+            android:icon="@drawable/collection"
+            android:title="@string/collection" />
+        <item
+            android:id="@+id/groupGift"
+            android:icon="@drawable/group_gift"
+            android:title="@string/group_gift" />
+        <item
+            android:id="@+id/giftCard"
+            android:icon="@drawable/gift_card"
+            android:title="@string/gift_card" />
+        <item
+            android:id="@+id/invite"
+            android:icon="@drawable/invite_earn"
+            android:title="@string/invite_earn" />
+    </group>
+
+    <group
+        android:id="@+id/section3"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/allStores"
+            android:icon="@drawable/all_store"
+            android:title="@string/all_stores" />
+        <item
+            android:id="@+id/help"
+            android:icon="@drawable/help"
+            android:title="@string/help" />
+        <item
+            android:id="@+id/rateApp"
+            android:icon="@drawable/rating"
+            android:title="@string/rate_app" />
+    </group>
+
+</menu>

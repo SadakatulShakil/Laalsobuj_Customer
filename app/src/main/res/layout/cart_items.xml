@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainLay"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layoutDirection="@string/layout_direction"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/itemImage"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/divider"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:id="@+id/quantitylay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itemImage"
+        android:layout_marginStart="15dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/qtyMinus"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="5dp"
+            android:src="@drawable/qty_minus" />
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="7dp"
+            android:layout_marginStart="7dp"
+            android:maxLines="2"
+            android:text="1"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/text_size_medium"
+            app:typeface="font_regular.ttf" />
+
+        <ImageView
+            android:id="@+id/qtyPlus"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="5dp"
+            android:src="@drawable/qty_plus" />
+    </LinearLayout>
+
+
+    <com.futureskyltd.app.external.CustomTextView
+        android:id="@+id/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quantitylay"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="15dp"
+        android:text="Error"
+        android:visibility="gone"
+        android:textColor="@color/red"
+        android:textSize="@dimen/text_size_small"
+        app:typeface="font_regular.ttf" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/itemImage"
+        android:layout_toStartOf="@+id/cancel"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/itemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text="@string/grap_best_deal"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/text_size_medium"
+            app:typeface="font_regular.ttf" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/itemPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$ 121"
+                android:textColor="@color/textPrimary"
+                android:textSize="@dimen/text_size_medium"
+                app:typeface="font_regular.ttf" />
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/discountPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:text=""
+                android:textColor="@color/textSecondary"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_regular.ttf" />
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/discountPercent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_regular.ttf" />
+        </LinearLayout>
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/itemSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Size"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/text_size_small"
+            app:typeface="font_regular.ttf" />
+
+        <LinearLayout
+            android:id="@+id/shippingLay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/shipping" />
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/shipping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Two business days"
+                android:textColor="@color/textPrimary"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_regular.ttf" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/cancel"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:padding="10dp"
+        android:src="@drawable/cancel" />
+
+</RelativeLayout>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="@string/layout_direction"
+    android:background="@color/white">
+
+    <com.futureskyltd.app.external.RoundedImageView
+        android:id="@+id/userImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="15dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
+        android:background="@mipmap/appicon_round"
+        app:corner_radius="100dip"
+        app:round_background="true"/>
+
+    <RelativeLayout
+        android:id="@+id/contentLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/userImage">
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_regular.ttf"
+            android:id="@+id/fullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_medium"
+            android:text="User name"
+            android:textColor="@color/textPrimary"/>
+
+        <!--<RatingBar-->
+            <!--android:id="@+id/ratingBar"-->
+            <!--android:layout_width="235dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_marginRight="-145dp"-->
+            <!--android:layout_marginTop="3dp"-->
+            <!--android:layout_below="@+id/fullName"-->
+            <!--android:isIndicator="true"-->
+            <!--android:theme="@style/RatingBar"-->
+            <!--android:scaleX=".4"-->
+            <!--android:scaleY=".4"-->
+            <!--android:transformPivotX="-1dp"-->
+            <!--android:transformPivotY="0dp"-->
+            <!--android:numStars="5"-->
+            <!--android:stepSize="1"-->
+            <!--android:rating="3.5" />-->
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_regular.ttf"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/fullName"
+            android:textAlignment="gravity"
+            android:textSize="@dimen/text_size_small"
+            android:text="Title"
+            android:textColor="@color/colorPrimary"/>
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            style="@style/RatingBarsmall"
+            android:layout_below="@+id/title"
+            android:isIndicator="true"
+            android:theme="@style/RatingBar"
+            android:numStars="5"
+            android:stepSize="1"
+            android:rating="3.5" />
+
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_regular.ttf"
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/ratingBar"
+            android:textAlignment="gravity"
+            android:textSize="@dimen/text_size_small"
+            android:text="Message"
+            android:textColor="@color/textPrimary"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="15dp"
+        android:layout_toStartOf="@+id/userImage"
+        android:layout_below="@+id/contentLay"
+        android:background="@color/divider"/>
+</RelativeLayout>

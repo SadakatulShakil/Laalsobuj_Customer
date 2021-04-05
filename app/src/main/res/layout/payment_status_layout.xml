@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <RelativeLayout
+        android:id="@+id/sucesspaymentLay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="15dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:padding="10dp"
+            android:src="@drawable/cancel"
+            app:tint="@color/white"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <com.futureskyltd.app.external.CircleProgress
+                android:id="@+id/circleProgress"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                app:finishState="2" />
+
+            <ImageView
+                android:id="@+id/nullImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:src="@drawable/warning"
+                app:tint="@color/white"
+                android:visibility="gone" />
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/your_order_placed_successfully"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                app:typeface="font_regular.ttf" />
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/subTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="@string/please_visit_order_page"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_small"
+                app:typeface="font_regular.ttf" />
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/continueBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/white_stroke_corner"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="@string/view_order_history"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_medium"
+                app:typeface="font_regular.ttf" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

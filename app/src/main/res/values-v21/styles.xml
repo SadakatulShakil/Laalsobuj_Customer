@@ -1,0 +1,51 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:listDivider">@color/divider</item>
+    </style>
+
+    <style name="AppTheme.NoActionBarActivity">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:listDivider">@drawable/item_divider</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListViewStyle</item>
+    </style>
+
+    <style name="ActivityToolbar" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+    <style name="DetailActivityToolbar" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="DropDownListViewStyle">
+        <item name="android:divider">@color/divider</item>
+        <item name="android:dividerHeight">1dp</item>
+    </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>

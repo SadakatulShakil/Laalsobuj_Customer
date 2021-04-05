@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="@color/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ActivityToolbar"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <include
+            android:id="@+id/actionbar"
+            layout="@layout/actionbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:id="@+id/topLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/colorPrimary"
+        android:layoutDirection="@string/layout_direction"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <com.futureskyltd.app.external.RoundedImageView
+            android:id="@+id/itemImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/divider"
+            android:scaleType="centerCrop"
+            app:corner_radius="100dip"
+            app:round_background="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/itemImage"
+            android:layout_toStartOf="@+id/amountLay"
+            android:orientation="vertical">
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/itemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:maxLines="1"
+                android:text="item name"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_medium"
+                app:typeface="font_regular.ttf" />
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="3dp"
+                android:text="id: "
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_medium"
+                app:typeface="font_regular.ttf" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/amountLay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:orientation="vertical">
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_toEndOf="@+id/itemImage"
+                android:text="@string/amount"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_medium"
+                app:typeface="font_regular.ttf" />
+
+            <com.futureskyltd.app.external.CustomTextView
+                android:id="@+id/amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_toEndOf="@+id/itemImage"
+                android:text="$ 0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_medium"
+                app:typeface="font_regular.ttf" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/loadmoreprogress"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/topLay"
+        android:layout_centerHorizontal="true"
+        android:theme="@style/CircularProgress"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottomLay"
+        android:layout_below="@+id/loadmoreprogress"
+        android:background="@color/white"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingBottom="15dp" />
+
+
+    <RelativeLayout
+        android:id="@+id/bottomLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layoutDirection="@string/layout_direction">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider" />
+
+        <com.futureskyltd.app.external.CustomEditText
+            android:id="@+id/chatEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/sendBtn"
+            android:background="@null"
+            android:hint="@string/type_your_message"
+            android:imeOptions="actionDone"
+            android:maxLength="250"
+            android:padding="10dp"
+            android:textColor="@color/textSecondary"
+            android:textColorHint="@color/textLight"
+            android:textSize="@dimen/text_size_small"
+            app:typeface="font_regular.ttf" />
+
+        <ImageView
+            android:id="@+id/sendBtn"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:padding="10dp"
+            android:src="@drawable/send" />
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/nullLay"
+        layout="@layout/null_lay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <include
+        android:id="@+id/progress"
+        layout="@layout/progress_lay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+</RelativeLayout>

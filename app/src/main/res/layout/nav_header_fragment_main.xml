@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    android:layoutDirection="@string/layout_direction"
+    android:fitsSystemWindows="true"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <RelativeLayout
+        android:id="@+id/userLay"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin">
+
+        <com.futureskyltd.app.external.RoundedImageView
+            android:id="@+id/userImage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop"
+            android:background="@mipmap/appicon"
+            app:corner_radius="100dip"
+            app:round_background="true"/>
+
+        <LinearLayout
+            android:id="@+id/usrLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/userImage"
+            android:layout_toStartOf="@+id/homeBtn"
+            android:orientation="vertical">
+
+            <com.futureskyltd.app.external.CustomTextView
+                app:typeface="font_regular.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/white"/>
+
+            <com.futureskyltd.app.external.CustomTextView
+                app:typeface="font_bold.ttf"
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp"
+                android:text="User name"
+                android:textSize="@dimen/text_size_medium"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/homeBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:visibility="gone"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/home" />
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/credit_Lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:visibility="gone"
+        android:background="@color/colorPrimary">
+
+        <com.futureskyltd.app.external.CustomTextView
+            app:typeface="font_regular.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/creditAmountLay"
+            android:text="@string/credit_balance"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/white" />
+
+        <RelativeLayout
+            android:id="@+id/creditAmountLay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minWidth="50dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/credit_round_corner">
+
+            <ProgressBar
+                android:id="@+id/creditProgress"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerInParent="true"
+                android:visibility="gone"/>
+
+            <com.futureskyltd.app.external.CustomTextView
+                app:typeface="font_bold.ttf"
+                android:id="@+id/credit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingStart="13dp"
+                android:paddingEnd="13dp"
+                android:text="$ 0"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/white"
+                android:visibility="visible"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/nav_menu_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"/>
+</LinearLayout>

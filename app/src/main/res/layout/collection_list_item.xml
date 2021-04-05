@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layoutDirection="@string/layout_direction"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/collectionName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/viewAll"
+            android:maxLines="2"
+            android:text="@string/grap_best_deal"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/text_size_medium"
+            android:paddingEnd="5dp"
+            android:paddingStart="0dp"
+            app:typeface="font_regular.ttf" />
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/itemsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/collectionName"
+            android:layout_marginTop="5dp"
+            android:text="5 items"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/text_size_medium"
+            app:typeface="font_regular.ttf" />
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/viewAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:paddingBottom="7dp"
+            android:paddingEnd="14dp"
+            android:paddingStart="14dp"
+            android:paddingTop="7dp"
+            android:text="@string/view_all"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_small"
+            app:typeface="font_regular.ttf" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/divider" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/collectionList"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:clipToPadding="false" />
+
+</LinearLayout>

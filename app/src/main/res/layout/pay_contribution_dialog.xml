@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <com.futureskyltd.app.external.CustomTextView
+        app:typeface="font_bold.ttf"
+        android:id="@+id/contributeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/contribute_now"
+        android:textColor="@color/textPrimary"
+        android:textSize="@dimen/text_size_medium" />
+
+    <com.futureskyltd.app.external.CustomTextView
+        app:typeface="font_regular.ttf"
+        android:id="@+id/minContribution"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contributeText"
+        android:gravity="center"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/enter_your_contribute_amount_minimum_transaction"
+        android:textColor="@color/textPrimary"
+        android:textSize="@dimen/text_size_small" />
+
+    <ImageView
+        android:id="@+id/cancel"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:clickable="true"
+        android:src="@drawable/cancel" />
+
+    <com.futureskyltd.app.external.CustomEditText
+        app:typeface="font_regular.ttf"
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_bg"
+        android:layout_below="@+id/minContribution"
+        android:hint="@string/enter_amount"
+        android:inputType="numberDecimal"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:padding="10dp"
+        android:textSize="@dimen/text_size_small"
+        android:textColor="@color/textPrimary"/>
+
+    <com.futureskyltd.app.external.CustomTextView
+        app:typeface="font_regular.ttf"
+        android:id="@+id/payNow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText"
+        android:padding="13dp"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_small"
+        android:text="@string/pay_now"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"/>
+
+</RelativeLayout>

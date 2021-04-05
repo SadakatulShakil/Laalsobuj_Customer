@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/introLay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="@string/layout_direction"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/introBottomLay"
+            android:background="@color/colorPrimary">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/group_gift_white"/>
+
+                <com.futureskyltd.app.external.CustomTextView
+                    app:typeface="font_bold.ttf"
+                    android:id="@+id/giftText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:paddingStart="25dp"
+                    android:paddingEnd="25dp"
+                    android:textSize="24sp"
+                    android:text="Fantacy Group Gift"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/introBottomLay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:padding="15dp"
+            android:background="@color/white">
+
+            <com.futureskyltd.app.external.CustomTextView
+                app:typeface="font_regular.ttf"
+                android:id="@+id/giftDes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:lineSpacingExtra="3dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="30dp"
+                android:textSize="@dimen/text_size_small"
+                android:text="@string/group_gift_des"
+                android:textColor="@color/textPrimary"/>
+
+            <com.futureskyltd.app.external.CustomTextView
+                app:typeface="font_bold.ttf"
+                android:id="@+id/howItWorks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/giftDes"
+                android:gravity="center"
+                android:clickable="true"
+                android:background="@color/colorPrimary"
+                android:padding="15dp"
+                android:textSize="@dimen/text_size_small"
+                android:text="@string/how_it_works"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/nullLay"
+        layout="@layout/null_lay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <include
+        android:id="@+id/progress"
+        layout="@layout/progress_lay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

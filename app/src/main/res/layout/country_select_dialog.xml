@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="40dp"
+    android:layout_marginTop="40dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.futureskyltd.app.external.CustomTextView
+            android:id="@+id/countryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:text="@string/country" />
+
+        <View
+            android:id="@+id/countrySeperator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/countryTitle"
+            android:background="@color/divider"
+            android:padding="10dp"
+            android:text="@string/country" />
+
+        <ListView
+            android:id="@+id/countryLists"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/countrySeperator"/>
+    </RelativeLayout>
+
+</RelativeLayout>

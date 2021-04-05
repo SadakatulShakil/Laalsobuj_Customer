@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    android:background="@color/white">
+
+    <com.futureskyltd.app.external.CustomTextView
+        app:typeface="font_bold.ttf"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:padding="10dp"
+        android:textSize="@dimen/text_size_medium"
+        android:text="@string/grap_best_deal"
+        android:textColor="@color/textPrimary"/>
+
+    <com.futureskyltd.app.external.CustomTextView
+        app:typeface="font_bold.ttf"
+        android:id="@+id/no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_toStartOf="@+id/yes"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:textSize="@dimen/text_size_medium"
+        android:text="@string/no"
+        android:textColor="@color/colorPrimary"
+        android:visibility="gone"/>
+
+    <com.futureskyltd.app.external.CustomTextView
+        app:typeface="font_bold.ttf"
+        android:id="@+id/yes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:textSize="@dimen/text_size_medium"
+        android:text="@string/yes"
+        android:textColor="@color/colorPrimary"/>
+
+</RelativeLayout>

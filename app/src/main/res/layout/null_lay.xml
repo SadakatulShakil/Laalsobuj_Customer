@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nullLay"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="gone"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/nullImage"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/warning" />
+
+    <com.futureskyltd.app.external.CustomTextView
+        android:id="@+id/nullText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/nullImage"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/something_went_wrong"
+        android:textColor="@color/textSecondary"
+        android:textSize="@dimen/text_size_medium"
+        app:typeface="font_regular.ttf" />
+</RelativeLayout>

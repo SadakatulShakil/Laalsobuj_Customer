@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/mainLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layoutDirection="@string/layout_direction">
+
+        <com.futureskyltd.app.external.CornerImageView
+                android:id="@+id/itemImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:paddingTop="0dp"
+                android:background="@drawable/allside_curve_white"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                app:riv_corner_radius="3dp"/>
+
+        <LinearLayout
+            android:id="@+id/bottomLay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:visibility="gone"
+            android:background="@color/white"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_below="@+id/itemImage"
+            android:orientation="vertical">
+
+            <com.futureskyltd.app.external.CustomTextView
+                app:typeface="font_regular.ttf"
+                android:id="@+id/itemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:layout_gravity="start"
+                android:singleLine="true"
+                android:textSize="@dimen/text_size_small"
+                android:text="@string/grap_best_deal"
+                android:textColor="@color/textPrimary"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal">
+
+                <com.futureskyltd.app.external.CustomTextView
+                    app:typeface="font_bold.ttf"
+                    android:id="@+id/itemPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textSize="@dimen/text_size_small"
+                    android:text="$ 121"
+                    android:textColor="@color/textPrimary"/>
+
+                <com.futureskyltd.app.external.CustomTextView
+                    android:id="@+id/discountPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/textSecondary"
+                    android:textSize="@dimen/text_size_small"
+                    app:typeface="font_regular.ttf" />
+            </LinearLayout>
+
+            <com.futureskyltd.app.external.CustomTextView
+                app:typeface="font_regular.ttf"
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:visibility="gone"
+                android:singleLine="true"
+                android:textSize="@dimen/text_size_small"
+                android:text="this product is best ever and this is very costly"
+                android:textColor="@color/textSecondary"/>
+
+            <LinearLayout
+                android:id="@+id/suggest_child"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:paddingTop="10dp"
+                android:orientation="vertical">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/suggest_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/likedBtn"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:padding="12dp"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:visibility="gone"
+            android:src="@drawable/unlike" />
+
+    </RelativeLayout>
+
+</LinearLayout>
