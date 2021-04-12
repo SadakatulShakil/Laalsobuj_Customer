@@ -16,12 +16,17 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.futureskyltd.app.Api.ApiInterface;
+import com.futureskyltd.app.Api.RetrofitClient;
+import com.futureskyltd.app.ApiPojo.CustomerProfile.CustomerProfile;
+import com.futureskyltd.app.ApiPojo.GeneralLogIn.GeneralLogIn;
 import com.futureskyltd.app.external.FontCache;
 import com.futureskyltd.app.helper.DatabaseHandler;
 import com.futureskyltd.app.helper.NetworkReceiver;
@@ -44,6 +49,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
 
 /**
  * Created by hitasoft on 17/6/17.
@@ -60,6 +68,7 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
     ViewPager viewPager;
     String userId = "", username = "", usernameURL = "";
     DatabaseHandler helper;
+    private CustomerProfile customerProfile;
     HashMap<String, String> profileMap = new HashMap<String, String>();
 
 
@@ -144,7 +153,7 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
         FantacyApplication.getInstance().setConnectivityListener(this);
     }
 
-    private void getProfile() {
+   /* private void getProfile() {
 
         StringRequest req = new StringRequest(Request.Method.POST, Constants.API_PROFILE, new Response.Listener<String>() {
             @Override
@@ -233,7 +242,7 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
                     } else if (status.equalsIgnoreCase("error")) {
                         String message = DefensiveClass.optString(json, Constants.TAG_MESSAGE);
                         if (message.equals(getString(R.string.admin_error)) || message.equals(getString(R.string.admin_delete_error))) {
-                           /* finish();
+                           *//* finish();
                             if (PaymentStatus.activity == null) {
                                 Intent i = new Intent(Profile.this, PaymentStatus.class);
                                 if (userId.equals(GetSet.getUserId())) {
@@ -242,15 +251,15 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
                                     i.putExtra("from", "other_user_block");
                                 }
                                 startActivity(i);
-                            }*/
+                            }*//*
                         } else {
-                            /*Intent i = new Intent(Profile.this, PaymentStatus.class);
+                            *//*Intent i = new Intent(Profile.this, PaymentStatus.class);
                             i.putExtra("from", "maintenance");
                             startActivity(i);
-                            finish();*/
+                            finish();*//*
                         }
                     } else if (status.equalsIgnoreCase("false")) {
-                        /*if (PaymentStatus.activity == null) {
+                        *//*if (PaymentStatus.activity == null) {
                             Intent i = new Intent(Profile.this, PaymentStatus.class);
                             if (userId.equals(GetSet.getUserId())) {
                                 i.putExtra("from", "delete");
@@ -259,7 +268,7 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
                             }
                             startActivity(i);
                             finish();
-                        }*/
+                        }*//*
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -303,7 +312,7 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
 
         };
         FantacyApplication.getInstance().addToRequestQueue(req);
-    }
+    }*/
 
     private void followUser(final Boolean follow) {
 
@@ -594,6 +603,37 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
         getProfile();
     }
 
+    private void getProfile() {
+        Retrofit retrofit = RetrofitClient.getRetrofitClient();
+        ApiInterface api = retrofit.create(ApiInterface.class);
+
+        Call<CustomerProfile> getProfileCall = api.postByCustomerProfile(customerId, customerId);
+
+        getProfileCall.enqueue(new Callback<CustomerProfile>() {
+            @Override
+            public void onResponse(Call<CustomerProfile> call, retrofit2.Response<CustomerProfile> response) {
+                if(response.code() == 200){
+                    customerProfile = response.body();
+                    if(customerProfile.getStatus().equals("true")){
+                        userName.setText(customerProfile.getResult().getFullName());
+                        Picasso.get().load(customerProfile.getResult().getUserImage()).into(userImage);
+                        Picasso.get().load(customerProfile.getResult().getUserImage()).into(backgroundImage);
+                    }else{
+                        Toast.makeText(Profile.this, "Something is error", Toast.LENGTH_SHORT).show();
+
+                    }
+                }else {
+                    Toast.makeText(Profile.this, response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CustomerProfile> call, Throwable t) {
+                Toast.makeText(Profile.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -618,7 +658,7 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
                 break;
             case R.id.edit:
                 Intent i = new Intent(this, EditProfile.class);
-                i.putExtra("data", profileMap);
+                i.putExtra("ProData", customerProfile);
                 startActivity(i);
                 break;
             case R.id.followBtn:
@@ -628,12 +668,12 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
                         followUser(true);
                         profileMap.put(Constants.TAG_FOLLOW_STATUS, "unfollow");
                         followBtn.setText(getString(R.string.following));
-                        helper.addUserDetails(profileMap.get(Constants.TAG_USER_ID), "unfollow");
+                        helper.addUserDetails(customerId, "unfollow");
                     } else {
                         followUser(false);
                         profileMap.put(Constants.TAG_FOLLOW_STATUS, "follow");
                         followBtn.setText(getString(R.string.follow));
-                        helper.addUserDetails(profileMap.get(Constants.TAG_USER_ID), "follow");
+                        helper.addUserDetails(customerId, "follow");
                     }
                 } else {
                     Intent login = new Intent(this, SignInActivity.class);

@@ -1022,7 +1022,7 @@ public class FragmentMainActivity extends BaseActivity
                 if (accesstoken != null) {
                     switchContent(new InviteFragment());
                 } else {
-                    Intent login = new Intent(this, SignUpActivity.class);
+                    Intent login = new Intent(this, SignInActivity.class);
                     startActivity(login);
                 }
                 drawer.closeDrawer(Gravity.LEFT);
@@ -1031,7 +1031,7 @@ public class FragmentMainActivity extends BaseActivity
                 if (accesstoken != null) {
                     switchContent(new AlertsFragment());
                 } else {
-                    Intent login = new Intent(this, SignUpActivity.class);
+                    Intent login = new Intent(this, SignInActivity.class);
                     startActivity(login);
                 }
                 break;
@@ -1042,7 +1042,7 @@ public class FragmentMainActivity extends BaseActivity
                     startActivity(p);
                     Log.d(TAG, "getAuthUserImage: "+customerId);
                 } else {
-                    Intent login = new Intent(this, SignUpActivity.class);
+                    Intent login = new Intent(this, SignInActivity.class);
                     startActivity(login);
                 }
 
@@ -1054,7 +1054,7 @@ public class FragmentMainActivity extends BaseActivity
                     startActivity(p);
                     Log.d(TAG, "getAuthUsrLayout: "+customerId);
                 } else {
-                    Intent login = new Intent(this, SignUpActivity.class);
+                    Intent login = new Intent(this, SignInActivity.class);
                     startActivity(login);
                 }
                 break;
@@ -1066,7 +1066,7 @@ public class FragmentMainActivity extends BaseActivity
                     c.putExtra("itemId", "0");
                     startActivity(c);
                 } else {
-                    Intent login = new Intent(this, SignUpActivity.class);
+                    Intent login = new Intent(this, SignInActivity.class);
                     startActivity(login);
                 }
                 break;
@@ -1083,7 +1083,7 @@ public class FragmentMainActivity extends BaseActivity
                     switchContent(LikedItems.newInstance("menu", customerId));
                     Log.d(TAG, "getAuthLikedBtn "+customerId);
                 } else {
-                    Intent login = new Intent(this, SignUpActivity.class);
+                    Intent login = new Intent(this, SignInActivity.class);
                     startActivity(login);
                 }
                 break;

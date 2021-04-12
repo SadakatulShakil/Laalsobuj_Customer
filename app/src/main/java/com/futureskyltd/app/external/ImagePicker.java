@@ -36,6 +36,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import com.futureskyltd.app.fantacy.BuildConfig;
 import com.futureskyltd.app.fantacy.R;
 
 import java.io.File;
@@ -46,8 +47,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import ch.acra.acra.BuildConfig;
 
 /**
  * Author: Mario Velasco Casquero

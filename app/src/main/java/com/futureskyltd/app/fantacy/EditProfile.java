@@ -2,14 +2,17 @@ package com.futureskyltd.app.fantacy;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,6 +30,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.futureskyltd.app.Api.ApiInterface;
+import com.futureskyltd.app.Api.RetrofitClient;
+import com.futureskyltd.app.ApiPojo.CustomerProfile.CustomerProfile;
+import com.futureskyltd.app.ApiPojo.ImageUpload.ImageUpload;
 import com.futureskyltd.app.external.CustomEditText;
 import com.futureskyltd.app.external.ImagePicker;
 import com.futureskyltd.app.helper.ImageCompression;
@@ -55,9 +62,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -69,10 +82,10 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 public class EditProfile extends BaseActivity implements View.OnClickListener, NetworkReceiver.ConnectivityReceiverListener {
 
     private static final String TAG = EditProfile.class.getSimpleName();
-    public static boolean imageUploading = false;
+    //public static boolean imageUploading = false;
     ImageView backBtn, cartBtn, searchBtn, edit, backgroundImage, userImage;
     TextView title, userName, email, change, cancelPass, savePass, viewAll,
-            addressName, address1, address2, country, phone, addNew, save;
+            addressName, address1, address2, country, phone, addNew, save, saveImage;
     RelativeLayout passwordLay, addressLay, changePasswordLay;
     EditText oldPassword, newPassword, rePassword;
     ProgressDialog pd;
@@ -80,8 +93,14 @@ public class EditProfile extends BaseActivity implements View.OnClickListener, N
     HashMap<String, String> profileMap = new HashMap<String, String>();
     ArrayList<HashMap<String, String>> addressAry = new ArrayList<>();
     CustomEditText profFullName;
+    private CustomerProfile customerProfile;
     SharedPreferences preferences;
-    String accesstoken, customerId;
+    String accesstoken, customerId, socialLogin, userPhone;
+    private Intent pickIntent, chooseIntent;
+    private File proFile;
+    private Uri proImageUri;
+    private RequestBody requestBody;
+    private String result = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +113,9 @@ public class EditProfile extends BaseActivity implements View.OnClickListener, N
         preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
         accesstoken = preferences.getString("TOKEN", null);
         customerId = preferences.getString("customer_id", null);
+
+        Intent intent = getIntent();
+        customerProfile = (CustomerProfile) intent.getSerializableExtra("ProData");
 
         title = (TextView) findViewById(R.id.title);
         backBtn = (ImageView) findViewById(R.id.backBtn);
@@ -120,16 +142,28 @@ public class EditProfile extends BaseActivity implements View.OnClickListener, N
         phone = (TextView) findViewById(R.id.phone);
         addNew = (TextView) findViewById(R.id.addNew);
         save = (TextView) findViewById(R.id.save);
+        saveImage = findViewById(R.id.saveImage);
         passwordLay = (RelativeLayout) findViewById(R.id.passwordLay);
         addressLay = (RelativeLayout) findViewById(R.id.addressLay);
         changePasswordLay = (RelativeLayout) findViewById(R.id.changePasswordLay);
-
+        SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
         SharedPreferences pref = getApplicationContext().getSharedPreferences("FantacyPref", MODE_PRIVATE);
-        if (pref.getBoolean(Constants.IS_SOCIAL_LOGIN, false)) {
+        socialLogin = preferences.getString("social_login", null);
+        userPhone = preferences.getString("customer_phone", null);
+        Log.d(TAG, "onSocial: "+socialLogin);
+        if(socialLogin.equals("yes")){
+            changePasswordLay.setVisibility(View.GONE);
+        }
+        else if(socialLogin.equals("no")){
+            changePasswordLay.setVisibility(View.VISIBLE);
+        }
+
+
+        /*if (pref.getBoolean(Constants.IS_SOCIAL_LOGIN, false)) {
             changePasswordLay.setVisibility(View.GONE);
         } else {
             changePasswordLay.setVisibility(View.VISIBLE);
-        }
+        }*/
 
         title.setText(getString(R.string.edit_profile));
 
@@ -148,14 +182,20 @@ public class EditProfile extends BaseActivity implements View.OnClickListener, N
         userImage.setOnClickListener(this);
         cartBtn.setOnClickListener(this);
         searchBtn.setOnClickListener(this);
+        saveImage.setOnClickListener(this);
         profileMap = (HashMap<String, String>) getIntent().getExtras().get("data");
-        profFullName.setText(profileMap.get(Constants.TAG_FULL_NAME));
+        //profFullName.setText(profileMap.get(Constants.TAG_FULL_NAME));
+        profFullName.setText(customerProfile.getResult().getFullName());
         profFullName.setSelection(profFullName.getText().length());
-        userName.setText(profileMap.get(Constants.TAG_USER_NAME));
-        email.setText(profileMap.get(Constants.TAG_EMAIL));
+        //userName.setText(profileMap.get(Constants.TAG_USER_NAME));
+        userName.setText(customerProfile.getResult().getUserName());
+        //email.setText(profileMap.get(Constants.TAG_EMAIL));
+        email.setText(customerProfile.getResult().getPhone());
 
-        Picasso.get().load(profileMap.get(Constants.TAG_USER_IMAGE)).error(R.drawable.temp).placeholder(R.drawable.temp).into(userImage);
-        Picasso.get().load(profileMap.get(Constants.TAG_USER_IMAGE)).error(R.drawable.temp).placeholder(R.drawable.temp).into(backgroundImage);
+        Picasso.get().load(customerProfile.getResult().getUserImage()).into(userImage);
+        Picasso.get().load(customerProfile.getResult().getUserImage()).into(backgroundImage);
+        //Picasso.get().load(profileMap.get(Constants.TAG_USER_IMAGE)).error(R.drawable.temp).placeholder(R.drawable.temp).into(userImage);
+        //Picasso.get().load(profileMap.get(Constants.TAG_USER_IMAGE)).error(R.drawable.temp).placeholder(R.drawable.temp).into(backgroundImage);
 
         getAddress();
 
@@ -167,7 +207,7 @@ public class EditProfile extends BaseActivity implements View.OnClickListener, N
         FantacyApplication.getInstance().setConnectivityListener(this);
     }
 
-    @Override
+/*    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == -1 && requestCode == 234) {
@@ -191,7 +231,8 @@ public class EditProfile extends BaseActivity implements View.OnClickListener, N
                 FantacyApplication.defaultSnack(EditProfile.this.findViewById(R.id.parentLay), getString(R.string.something_went_wrong), "alert");
             }
         }
-    }
+    }*/
+///////////এখানে আমি ইমেজটার নাম পাঠাবো////////////////////
 
     private void setSettings(final String fullname) {
 
@@ -214,17 +255,17 @@ public class EditProfile extends BaseActivity implements View.OnClickListener, N
                             FragmentMainActivity.userName.setText(fullname);
                         }
 
-                        if (!viewUrl.equals("")) {
+                        /*if (!viewUrl.equals("")) {
                             FantacyApplication.editor.putString("userImage", viewUrl);
                             GetSet.setImageUrl(viewUrl);
                             if (FragmentMainActivity.userImage != null) {
                                 Picasso.get().load(viewUrl).placeholder(R.drawable.temp).error(R.drawable.temp).into(FragmentMainActivity.userImage);
                             }
-                        }
+                        }*/
                         FantacyApplication.editor.commit();
 
-                        viewUrl = "";
-                        imageName = "";
+                      /*  viewUrl = "";
+                        imageName = "";*/
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -265,6 +306,8 @@ public class EditProfile extends BaseActivity implements View.OnClickListener, N
         };
         FantacyApplication.getInstance().addToRequestQueue(req);
     }
+
+    ///////////এখানে আমি ইমেজটার নাম পাঠাবো////////////////////
 
     private void getAddress() {
         final ProgressDialog dialog = new ProgressDialog(EditProfile.this);
@@ -468,20 +511,20 @@ public class EditProfile extends BaseActivity implements View.OnClickListener, N
             FantacyApplication.showSnack(this, findViewById(R.id.parentLay), false);
         }
 
-        if (imageUploading) {
+       /* if (imageUploading) {
             pd.show();
-        }
+        }*/
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         FantacyApplication.showSnack(this, findViewById(R.id.parentLay), true);
-        if (imageUploading) {
+      /*  if (imageUploading) {
             if (pd != null && pd.isShowing()) {
                 pd.dismiss();
             }
-        }
+        }*/
     }
 
     @Override
@@ -495,7 +538,8 @@ public class EditProfile extends BaseActivity implements View.OnClickListener, N
         switch (requestCode) {
             case 100:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    ImagePicker.pickImage(this, "Select your image:");
+                    //ImagePicker.pickImage(this, "Select your image:");
+                    ChooseImage();
                 } else {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (shouldShowRequestPermissionRationale(CAMERA) &&
@@ -529,6 +573,7 @@ public class EditProfile extends BaseActivity implements View.OnClickListener, N
                 break;
             case R.id.save:
                 setSettings(profFullName.getText().toString().trim());
+                //(profFullName.getText().toString().trim());
                 //finish();
                 break;
             case R.id.viewAll:
@@ -544,14 +589,14 @@ public class EditProfile extends BaseActivity implements View.OnClickListener, N
                 break;
             case R.id.userImage:
             case R.id.edit:
-                if (ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, CAMERA)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE, CAMERA}, 100);
-                } else {
-                    ImagePicker.pickImage(this, "Select your image:");
-                }
+                    //ImagePicker.pickImage(this, "Select your image:");
+                    ChooseImage();
+
                 break;
+            case R.id.saveImage:
+                UploadProfileImage();
+                break;
+
             case R.id.change:
                 if (passwordLay.getVisibility() == View.VISIBLE) {
                     passwordLay.setVisibility(View.GONE);
@@ -571,6 +616,7 @@ public class EditProfile extends BaseActivity implements View.OnClickListener, N
                 passwordLay.setVisibility(View.GONE);
                 FantacyApplication.hideSoftKeyboard(EditProfile.this, cancelPass);
                 break;
+
             case R.id.savePass:
                 if (profileMap.get(Constants.TAG_HAS_PASSWORD).equals("no")) {
                     if (oldPassword.getText().toString().equals(newPassword.getText().toString())) {
@@ -606,6 +652,86 @@ public class EditProfile extends BaseActivity implements View.OnClickListener, N
         }
     }
 
+
+    private void UploadProfileImage() {
+        if(proImageUri != null){
+            proFile = new File(getRealPathFromUri(proImageUri));
+            requestBody = RequestBody.create(MediaType.parse("application/octet-stream"), proFile);
+            Log.d(TAG, "onImage: " + requestBody.toString());
+        }
+        Log.d(TAG, "UploadProfileImage: "+accesstoken);
+        pd.show();
+
+
+        Retrofit retrofit = RetrofitClient.getRetrofitClient1();
+        ApiInterface api = retrofit.create(ApiInterface.class);
+
+        Call<ImageUpload> uploadImageCall = api.postByUploadImage(requestBody);
+
+        uploadImageCall.enqueue(new Callback<ImageUpload>() {
+            @Override
+            public void onResponse(Call<ImageUpload> call, retrofit2.Response<ImageUpload> response) {
+                pd.dismiss();
+                Log.d(TAG, "onResponse1: "+ response.code());
+                if(response.code()==200){
+                    ImageUpload imageUploadInfo = response.body();
+                    if(imageUploadInfo.getStatus().equals("true")){
+                        imageName = imageUploadInfo.getResult().getName();
+                        Log.d(TAG, "onResponseName: "+ imageName);
+                    }else{
+                        Toast.makeText(EditProfile.this, "File is too big !", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(EditProfile.this, response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ImageUpload> call, Throwable t) {
+                pd.dismiss();
+                Log.d(TAG, "onResponse2: "+t.getCause());
+            }
+        });
+
+    }
+
+    private void ChooseImage() {
+
+        chooseIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(chooseIntent, 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.d(TAG, "onActivityResult: " + "Activity result success");
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if (resultCode == -1 && data != null && data.getData() != null) {
+                proImageUri = data.getData();
+                String name = proImageUri.getPath();
+                Log.d(TAG, "onActivityResult: " + name);
+                Picasso.get().load(proImageUri).into(userImage);
+                Picasso.get().load(proImageUri).into(backgroundImage);
+                saveImage.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    private String getRealPathFromUri(Uri contentUri) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        CursorLoader loader = new CursorLoader(EditProfile.this, contentUri, proj, null, null, null);
+        Cursor cursor = loader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        if(cursor != null){
+
+            result = cursor.getString(column_index);
+        }
+        cursor.close();
+        return result;
+    }
+
     private void callProfile(String usrName) {
         Intent p = new Intent(EditProfile.this, Profile.class);
         p.putExtra("userId", customerId);
@@ -615,7 +741,7 @@ public class EditProfile extends BaseActivity implements View.OnClickListener, N
         startActivity(p);
     }
 
-    class uploadImage extends AsyncTask<String, Integer, Integer> {
+    /*class uploadImage extends AsyncTask<String, Integer, Integer> {
 
         JSONObject jsonobject = null;
         String Json = "";
@@ -754,5 +880,5 @@ public class EditProfile extends BaseActivity implements View.OnClickListener, N
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 }

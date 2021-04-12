@@ -69,6 +69,8 @@ public class ViewAllActivity extends BaseActivity implements View.OnClickListene
     ImageView nullImage;
     TextView nullText;
     DatabaseHandler helper;
+    private SharedPreferences preferences;
+    private String accesstoken, customerId="", customerName="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +99,10 @@ public class ViewAllActivity extends BaseActivity implements View.OnClickListene
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.progresscolor));
         helper = DatabaseHandler.getInstance(ViewAllActivity.this);
         FragmentMainActivity.setCartBadge(findViewById(R.id.parentLay), ViewAllActivity.this);
-
+        preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+        accesstoken = preferences.getString("TOKEN", null);
+        customerId = preferences.getString("customer_id", null);
+        customerName = preferences.getString("customer_name", null);
         backBtn.setVisibility(View.VISIBLE);
         title.setVisibility(View.VISIBLE);
         cartBtn.setVisibility(View.VISIBLE);
@@ -226,14 +231,21 @@ public class ViewAllActivity extends BaseActivity implements View.OnClickListene
                 });
 
                 Map<String, String> map = new HashMap<String, String>();
-                if (GetSet.isLogged()) {
-                    map.put("user_id", GetSet.getUserId());
+                if (accesstoken !=null) {
+                    map.put("user_id", customerId);
                 }
                 map.put("type", keyword);
                 map.put("limit", Integer.toString(Constants.OVERALL_LIMIT));
                 map.put("offset", Integer.toString(offset));
                 Log.v(TAG, "getAllItemsParams=" + map);
                 return map;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + accesstoken);
+                Log.d(TAG, "getHeaders: " + accesstoken);
+                return headers;
             }
         };
         FantacyApplication.getInstance().addToRequestQueue(req, "viewAll");
@@ -250,9 +262,6 @@ public class ViewAllActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void likeItem(final int position, final String check) {
-        SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
-        String accesstoken = preferences.getString("TOKEN", null);
-        String customerId = preferences.getString("customer_id", null);
         StringRequest req = new StringRequest(Request.Method.POST, Constants.API_ITEMLIKE, new Response.Listener<String>() {
 
             @Override
@@ -351,7 +360,7 @@ public class ViewAllActivity extends BaseActivity implements View.OnClickListene
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.likedBtn:
-                        if (GetSet.isLogged()) {
+                        if (accesstoken != null) {
                             String liked = Items.get(getAdapterPosition()).get(Constants.TAG_LIKED);
                             int likeCount = getLikedCountFromLocal(Items.get(getAdapterPosition()));
                             if (liked.equalsIgnoreCase("yes")) {
@@ -367,7 +376,7 @@ public class ViewAllActivity extends BaseActivity implements View.OnClickListene
                             helper.updateItemDetails(Items.get(getAdapterPosition()).get(Constants.TAG_ID), Constants.TAG_LIKE_COUNT, "" + likeCount);
                             notifyDataSetChanged();
                         } else {
-                            Intent login = new Intent(context, LoginActivity.class);
+                            Intent login = new Intent(context, SignInActivity.class);
                             startActivity(login);
                         }
                         break;
@@ -503,14 +512,14 @@ public class ViewAllActivity extends BaseActivity implements View.OnClickListene
                 startActivity(s);
                 break;
             case R.id.cartBtn:
-                if (GetSet.isLogged()) {
+                if (accesstoken !=null) {
                     Intent c = new Intent(this, CartActivity.class);
                     c.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     c.putExtra("shippingId", "0");
                     c.putExtra("itemId", "0");
                     startActivity(c);
                 } else {
-                    Intent login = new Intent(this, LoginActivity.class);
+                    Intent login = new Intent(this, SignInActivity.class);
                     startActivity(login);
                 }
                 break;

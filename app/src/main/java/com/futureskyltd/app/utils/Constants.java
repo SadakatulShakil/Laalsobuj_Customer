@@ -15,7 +15,7 @@ public class Constants {
     //public static final String URL = "https://prodev.hitasoft.in/fantacy5.0/fantacyv5/api/";
 
 
-    public static final String IMAGE_UPLOAD_URL = "https://www.lalsobuj.org/imageuploadapi.php";
+    public static final String IMAGE_UPLOAD_URL = "https://www.laalsobuj.com/imageuploadapi.php";
     //public static final String IMAGE_UPLOAD_URL = "https://prodev.hitasoft.in/fantacy5.0/fantacy/imageuploadapi.php";
     ///public static final String IMAGE_UPLOAD_URL = "https://prodev.hitasoft.in/fantacy5.0/fantacyv5/imageuploadapi.php";
 

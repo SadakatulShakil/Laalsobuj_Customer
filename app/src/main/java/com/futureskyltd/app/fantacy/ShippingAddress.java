@@ -3,6 +3,7 @@ package com.futureskyltd.app.fantacy;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -124,6 +126,9 @@ public class ShippingAddress extends BaseActivity implements View.OnClickListene
     }
 
     private void getAddress() {
+        SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+        String accesstoken = preferences.getString("TOKEN", null);
+        String customerId = preferences.getString("customer_id", null);
         StringRequest req = new StringRequest(Request.Method.POST, Constants.API_GET_ADDRESS, new Response.Listener<String>() {
 
             @Override
@@ -222,8 +227,15 @@ public class ShippingAddress extends BaseActivity implements View.OnClickListene
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("user_id", GetSet.getUserId());
+                map.put("user_id", customerId);
                 return map;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + accesstoken);
+                Log.d(TAG, "getHeaders: " + accesstoken);
+                return headers;
             }
         };
 
@@ -394,6 +406,9 @@ public class ShippingAddress extends BaseActivity implements View.OnClickListene
     }
 
     private void removeOrDefaultAddress(final String from, final String shippingId, final int position) {
+        SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+        String accesstoken = preferences.getString("TOKEN", null);
+        String customerId = preferences.getString("customer_id", null);
         final ProgressDialog dialog = new ProgressDialog(ShippingAddress.this);
         dialog.setMessage(getString(R.string.pleasewait));
         dialog.setCancelable(false);
@@ -451,10 +466,17 @@ public class ShippingAddress extends BaseActivity implements View.OnClickListene
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("user_id", GetSet.getUserId());
+                map.put("user_id", customerId);
                 map.put("shipping_id", shippingId);
                 Log.i(TAG, "removeOrDefaultAddressParams= " + map);
                 return map;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + accesstoken);
+                Log.d(TAG, "getHeaders: " + accesstoken);
+                return headers;
             }
         };
 

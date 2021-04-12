@@ -6,8 +6,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -19,6 +22,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.futureskyltd.app.Api.ApiInterface;
 import com.futureskyltd.app.Api.RetrofitClient;
+import com.futureskyltd.app.ApiPojo.GeneralLogIn.GeneralLogIn;
 import com.futureskyltd.app.ApiPojo.ShortAuth.ShortAuth;
 import com.futureskyltd.app.external.CustomTextView;
 import com.google.android.material.appbar.AppBarLayout;
@@ -43,7 +47,10 @@ public class SignInActivity extends AppCompatActivity {
     private AppBarLayout appBarLayout;
     private RelativeLayout relativeLayout;
     private CustomTextView demoText, goBack;
+    private EditText email, password;
+    private TextView signIn;
     private String fbId;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +71,70 @@ public class SignInActivity extends AppCompatActivity {
                 setUpFbData();
             }
         });
+
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String uEmail = email.getText().toString().trim();
+                String uPassword = password.getText().toString().trim();
+
+                if (uEmail.isEmpty()) {
+                    email.setError("Please enter correct email/phone");
+                    email.requestFocus();
+                    return;
+                }
+
+                if (uPassword.isEmpty()) {
+                    password.setError("This field is required!");
+                    password.requestFocus();
+                    return;
+                }
+                progressBar.setVisibility(View.VISIBLE);
+                setGeneralLogIn(uEmail, uPassword);
+            }
+        });
+    }
+
+    private void setGeneralLogIn(final String uEmail, final String uPassword) {
+
+        progressBar.setVisibility(View.VISIBLE);
+        Retrofit retrofit = RetrofitClient.getRetrofitClient();
+        ApiInterface api = retrofit.create(ApiInterface.class);
+
+        Call<GeneralLogIn> generalLogInCall = api.postByGeneralLogIn(uEmail, uPassword);
+
+        generalLogInCall.enqueue(new Callback<GeneralLogIn>() {
+            @Override
+            public void onResponse(Call<GeneralLogIn> call, Response<GeneralLogIn> response) {
+                if(response.code() == 200){
+                    GeneralLogIn generalLogIn = response.body();
+                    if(generalLogIn.getStatus().equals("true")){
+                        SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+                        preferences.edit().putString("TOKEN",generalLogIn.getToken()).apply();
+                        preferences.edit().putString("customer_id", generalLogIn.getUserId()).apply();
+                        preferences.edit().putString("customer_name", generalLogIn.getFullName()).apply();
+                        preferences.edit().putString("customer_image", generalLogIn.getUserImage()).apply();
+                        preferences.edit().putString("first_time_logged", generalLogIn.getFirstTimeLogged()).apply();
+                        preferences.edit().putString("social_login", "no").apply();
+                        Intent intent = new Intent(SignInActivity.this, FragmentMainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }else {
+                        Toast.makeText(SignInActivity.this, "Please enter correct email/ phone", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(SignInActivity.this, "There is a server error", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GeneralLogIn> call, Throwable t) {
+                Toast.makeText(SignInActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onFailure: "+t.getCause());
+            }
+        });
+
     }
 
     private void setUpFbData() {
@@ -141,6 +212,9 @@ public class SignInActivity extends AppCompatActivity {
                                             preferences.edit().putString("TOKEN",shortAuth.getToken()).apply();
                                             preferences.edit().putString("customer_id", shortAuth.getUser().getId()).apply();
                                             preferences.edit().putString("customer_name", shortAuth.getUser().getFirstName()).apply();
+                                            preferences.edit().putString("customer_phone", shortAuth.getUser().getPhoneNo()).apply();
+                                            preferences.edit().putString("customer_image", shortAuth.getUser().getProfileImage()).apply();
+                                            preferences.edit().putString("social_login", "yes").apply();
                                             Intent intent = new Intent(SignInActivity.this, FragmentMainActivity.class);
                                             startActivity(intent);
                                             finish();
@@ -200,5 +274,9 @@ public class SignInActivity extends AppCompatActivity {
         relativeLayout = findViewById(R.id.relay);
         demoText = findViewById(R.id.errorPending);
         goBack = findViewById(R.id.goBack);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        signIn = findViewById(R.id.signin);
+        progressBar = findViewById(R.id.progressBar);
     }
 }

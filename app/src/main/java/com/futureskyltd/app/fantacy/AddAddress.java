@@ -167,7 +167,7 @@ public class AddAddress extends BaseActivity implements View.OnClickListener, Ne
     private void getCountry() {
         SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
         String accesstoken = preferences.getString("TOKEN", null);
-        String customerID = preferences.getString("customer_id", null);
+        String customerId = preferences.getString("customer_id", null);
 
         StringRequest req = new StringRequest(Request.Method.POST, Constants.API_PRODUCT_BEFORE_ADD, new Response.Listener<String>() {
 
@@ -224,6 +224,10 @@ public class AddAddress extends BaseActivity implements View.OnClickListener, Ne
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> map = new HashMap<String, String>();
+                if(accesstoken != null) {
+                    map.put("user_id", customerId);
+                }
+                Log.d(TAG, "getParams: " + map);
                 return map;
             }
             @Override
