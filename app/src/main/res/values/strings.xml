@@ -491,20 +491,8 @@
     <string name="post_deleted">Your post has been deleted successfully</string>
     <string name="product_soldout">This Product is Sold Out</string>
     <string name="credit_low">Credit balance is low</string>
-    <string-array name="languages">
-        <item>English</item>
-        <item>French</item>
-        <!--   <item>Arabic</item>-->
-        <item>German</item>
-    </string-array>
-
-    <string-array name="languageCode" translatable="false">
-        <item>en</item>
-        <item>fr</item>
-        <item>ar</item>
-        <item>de</item>
-    </string-array>
     <string name="no_usr_found">Sorry! No User Found</string>
+
     <string name="forgot_pswd_success">Check your email in a few minutes for instructions to reset</string>
     <string name="view">View</string>
     <string name="dispute_view">View Dispute</string>
@@ -523,9 +511,9 @@
     <string name="claim_lbl">Claim</string>
     <string name="credit_equal_less">Credit amount should less than or equal to payable amount</string>
     <string name="camera_permission_description">Enable Camera and Storage permissions</string>
-
     <string name="expect_on">Expect on</string>
     <string name="please_select_valid_user">Please select valid user</string>
+
     <string name="item_not_shared">Item not shared</string>
     <string name="need_camera_to_access">Need camera permission!</string>
     <string name="live_feeds">Live Feeds</string>
@@ -546,4 +534,16 @@
     <string name="or_pay">or pay</string>
     <string name="item">item</string>
     <string name="liked_users">Liked Users</string>
+    <string-array name="languages">
+        <item>English</item>
+        <item>French</item>
+        <!--   <item>Arabic</item>-->
+        <item>German</item>
+    </string-array>
+    <string-array name="languageCode" translatable="false">
+        <item>en</item>
+        <item>fr</item>
+        <item>ar</item>
+        <item>de</item>
+    </string-array>
 </resources>

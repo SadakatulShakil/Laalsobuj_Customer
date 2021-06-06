@@ -1,7 +1,9 @@
 package com.futureskyltd.app.fantacy;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -52,6 +55,8 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
     ProgressDialog dialog;
     String shippingId = "0", itemId = "0", couponCode = "", giftCard = "", creditApplied = "", paymentType = "", size = "", quantity = "";
     int totalItems = 0;
+    private SharedPreferences preferences;
+    private String accesstoken, customerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +65,10 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+        accesstoken = preferences.getString("TOKEN", null);
+        customerId = preferences.getString("customer_id", null);
 
         title = (TextView) findViewById(R.id.title);
         backBtn = (ImageView) findViewById(R.id.backBtn);
@@ -263,7 +272,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("user_id", GetSet.getUserId());
+                map.put("user_id", customerId);
                 map.put("item_id", itemId);
                 map.put("shipping_id", shippingId);
                 if (!couponCode.equals(""))
@@ -281,7 +290,16 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
                 Log.v(TAG, "getPaymentParams=" + map);
                 return map;
             }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + accesstoken);
+                Log.d(TAG, "getHeaders: " + accesstoken);
+                return headers;
+            }
         };
+
         dialog.show();
         FantacyApplication.getInstance().addToRequestQueue(req);
     }
@@ -613,7 +631,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("user_id", GetSet.getUserId());
+                map.put("user_id", customerId);
                 map.put("item_id", itemId);
                 map.put("shipping_id", shippingId);
                 map.put("payment_type", paymentType);
@@ -646,6 +664,14 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
 
                 Log.d(TAG, "getParams: "+ map.toString());
                 return map;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + accesstoken);
+                Log.d(TAG, "getHeaders: " + accesstoken);
+                return headers;
             }
         };
         dialog.show();
@@ -891,7 +917,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("user_id", GetSet.getUserId());
+                map.put("user_id", customerId);
                 map.put("item_id", itemId);
                 map.put("shipping_id", shippingId);
                 if (!couponCode.equals(""))
@@ -908,6 +934,14 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
 
                 Log.v(TAG, "checkOrderParams=" + map.toString());
                 return map;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + accesstoken);
+                Log.d(TAG, "getHeaders: " + accesstoken);
+                return headers;
             }
         };
         dialog.show();

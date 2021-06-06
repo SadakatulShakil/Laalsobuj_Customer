@@ -149,13 +149,25 @@ public class CartActivity extends BaseActivity implements View.OnClickListener, 
         itemDivider.setDrawable(getResources().getDrawable(R.drawable.horizontal_line));
         recyclerView.addItemDecoration(itemDivider);
 
-        getCartData();
+        if(accesstoken != null){
+
+            getCartData();
+        }else {
+
+            getLocalCartData();
+        }
 
         recyclerViewAdapter = new RecyclerViewAdapter(this, itemsAry);
         recyclerView.setAdapter(recyclerViewAdapter);
 
         // register connection status listener
         FantacyApplication.getInstance().setConnectivityListener(this);
+    }
+
+    private void getLocalCartData() {
+
+
+
     }
 
     private void getCartData() {

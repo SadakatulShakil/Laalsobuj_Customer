@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -39,6 +40,8 @@ import com.futureskyltd.app.utils.Constants;
 import com.futureskyltd.app.utils.DefensiveClass;
 import com.futureskyltd.app.utils.GetSet;
 import com.futureskyltd.app.utils.ItemsParsing;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -71,6 +74,9 @@ public class ViewCollection extends BaseActivity implements View.OnClickListener
     RecyclerViewAdapter itemAdapter;
     GridLayoutManager itemManager;
     ArrayList<HashMap<String, String>> itemsAry = new ArrayList<HashMap<String, String>>();
+    SharedPreferences preferences;
+    Map<String, Map<String, String>> getRetMainMap;
+    private String localCartCount ="0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +108,19 @@ public class ViewCollection extends BaseActivity implements View.OnClickListener
 
         title.setText(getString(R.string.collection));
 
+        preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+        String getLocalCart = preferences.getString("localCart", null);
+        if(getLocalCart != null){
+
+            getRetMainMap = new Gson().fromJson(
+                    getLocalCart, new TypeToken<HashMap<String, Map<String, String>>>() {}.getType()
+            );
+            //FragmentMainActivity.cartCount = String.valueOf(getRetMainMap.values().size());
+            Log.d(TAG, "addLocalCartItem3: "+ getRetMainMap+"...."+FragmentMainActivity.cartCount);
+
+            /*localItemCount();*/
+        }
+        //localCartCount = String.valueOf(getRetMainMap.size());
         FragmentMainActivity.setCartBadge(findViewById(R.id.parentLay), ViewCollection.this);
 
         backBtn.setVisibility(View.VISIBLE);

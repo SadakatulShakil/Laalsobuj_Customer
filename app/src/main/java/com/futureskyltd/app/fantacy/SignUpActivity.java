@@ -154,44 +154,44 @@ public class SignUpActivity extends AppCompatActivity {
         int apaId = infoApa_id;
 
         if (name.isEmpty()) {
-            userNameEt.setError("Name is required!");
-            userNameEt.requestFocus();
+            nameEt.setError("Name is required!");
+            nameEt.requestFocus();
             return;
         }
         if (userName.isEmpty()) {
-            userEmailEt.setError("userName is required!");
-            userEmailEt.requestFocus();
+            userNameEt.setError("userName is required!");
+            userNameEt.requestFocus();
             return;
         }
         if (email.isEmpty() || !email.matches(emailPattern)) {
-            userPhoneEt.setError("Email is required!");
-            userPhoneEt.requestFocus();
+            userEmailEt.setError("Email is required!");
+            userEmailEt.requestFocus();
             return;
         }
 
         if (phone.isEmpty()) {
-            userStoreNameEt.setError("phone number is required!");
-            userStoreNameEt.requestFocus();
+            userPhoneEt.setError("phone number is required!");
+            userPhoneEt.requestFocus();
             return;
         }
         if (storeName.isEmpty()) {
-            userAddressEt.setError("storeName is required!");
-            userAddressEt.requestFocus();
+            userStoreNameEt.setError("storeName is required!");
+            userStoreNameEt.requestFocus();
             return;
         }
         if (address.isEmpty()) {
-            userZipEt.setError("address is required!");
-            userZipEt.requestFocus();
+            userAddressEt.setError("address is required!");
+            userAddressEt.requestFocus();
             return;
         }
         if (zip.isEmpty()) {
-            passwordEt.setError("zip is required!");
-            passwordEt.requestFocus();
+            userZipEt.setError("zip is required!");
+            userZipEt.requestFocus();
             return;
         }
         if (password.isEmpty()) {
-            nameEt.setError("password is required!");
-            nameEt.requestFocus();
+            passwordEt.setError("password is required!");
+            passwordEt.requestFocus();
             return;
         }
         if (confirmPassword.isEmpty()) {

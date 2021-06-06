@@ -31,6 +31,8 @@ import com.futureskyltd.app.utils.Constants;
 import com.futureskyltd.app.utils.DefensiveClass;
 import com.futureskyltd.app.utils.GetSet;
 import com.futureskyltd.app.utils.ItemsParsing;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -71,6 +73,8 @@ public class ViewAllActivity extends BaseActivity implements View.OnClickListene
     DatabaseHandler helper;
     private SharedPreferences preferences;
     private String accesstoken, customerId="", customerName="";
+    Map<String, Map<String, String>> getRetMainMap;
+    private String localCartCount ="0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,11 +102,25 @@ public class ViewAllActivity extends BaseActivity implements View.OnClickListene
         display = getWindowManager().getDefaultDisplay();
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.progresscolor));
         helper = DatabaseHandler.getInstance(ViewAllActivity.this);
-        FragmentMainActivity.setCartBadge(findViewById(R.id.parentLay), ViewAllActivity.this);
+
+
         preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
         accesstoken = preferences.getString("TOKEN", null);
         customerId = preferences.getString("customer_id", null);
         customerName = preferences.getString("customer_name", null);
+        String getLocalCart = preferences.getString("localCart", null);
+        if(getLocalCart != null){
+
+            getRetMainMap = new Gson().fromJson(
+                    getLocalCart, new TypeToken<HashMap<String, Map<String, String>>>() {}.getType()
+            );
+            //FragmentMainActivity.cartCount = String.valueOf(getRetMainMap.values().size());
+            Log.d(TAG, "addLocalCartItem3: "+ getRetMainMap+"...."+FragmentMainActivity.cartCount);
+
+            /*localItemCount();*/
+        }
+        //localCartCount = String.valueOf(getRetMainMap.size());
+        FragmentMainActivity.setCartBadge(findViewById(R.id.parentLay), ViewAllActivity.this);
         backBtn.setVisibility(View.VISIBLE);
         title.setVisibility(View.VISIBLE);
         cartBtn.setVisibility(View.VISIBLE);

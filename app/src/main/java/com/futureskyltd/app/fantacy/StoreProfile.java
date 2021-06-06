@@ -1,6 +1,8 @@
 package com.futureskyltd.app.fantacy;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -27,6 +29,8 @@ import com.futureskyltd.app.utils.Constants;
 import com.futureskyltd.app.utils.DefensiveClass;
 import com.futureskyltd.app.utils.GetSet;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -51,6 +55,9 @@ public class StoreProfile extends BaseActivity implements View.OnClickListener, 
     String storeId = "";
     DatabaseHandler helper;
     HashMap<String, String> profileMap = new HashMap<String, String>();
+    SharedPreferences preferences;
+    Map<String, Map<String, String>> getRetMainMap;
+    private String localCartCount ="0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +91,19 @@ public class StoreProfile extends BaseActivity implements View.OnClickListener, 
 
         storeId = getIntent().getExtras().getString("storeId");
 
+        preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+        String getLocalCart = preferences.getString("localCart", null);
+        if(getLocalCart != null){
+
+            getRetMainMap = new Gson().fromJson(
+                    getLocalCart, new TypeToken<HashMap<String, Map<String, String>>>() {}.getType()
+            );
+            //FragmentMainActivity.cartCount = String.valueOf(getRetMainMap.values().size());
+            Log.d(TAG, "addLocalCartItem3: "+ getRetMainMap+"...."+FragmentMainActivity.cartCount);
+
+            /*localItemCount();*/
+        }
+        //localCartCount = String.valueOf(getRetMainMap.size());
         FragmentMainActivity.setCartBadge(findViewById(R.id.parentLay), StoreProfile.this);
 
         setupViewPager(viewPager);

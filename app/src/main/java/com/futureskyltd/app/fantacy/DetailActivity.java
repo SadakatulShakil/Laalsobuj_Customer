@@ -64,6 +64,7 @@ import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.futureskyltd.app.external.CirclePageIndicator;
 import com.futureskyltd.app.external.CornerImageView;
 import com.futureskyltd.app.external.DividerItemDecorator;
@@ -78,6 +79,8 @@ import com.futureskyltd.app.utils.Constants;
 import com.futureskyltd.app.utils.DefensiveClass;
 import com.futureskyltd.app.utils.GetSet;
 import com.futureskyltd.app.utils.ItemsParsing;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import net.nightwhistler.htmlspanner.HtmlSpanner;
@@ -87,10 +90,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -114,6 +122,7 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
     Display display;
     ImageView backBtn, cartBtn, searchBtn, cancelBtn;
     RelativeLayout toolBarLay;
+    Integer localCartsum;
     int screenheight, imageHeight, selfiWidth, position, selectedSizePosition, itemWidth, lastSwipePosition;
     CollectionViewAdapter collectionViewAdapter;
     LinearLayoutManager collectionManager;
@@ -132,6 +141,12 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     int likedCount;
+    private String jsonMap;
+    private ArrayList<String> localitemIdList = new ArrayList<>();
+    Map<String, Map<String, String>> retMainMap;
+    Map<String, Map<String, String>> getRetMainMap;
+    Map<String, String> getPhotosMap;
+    private String localCartCount ="0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +155,7 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
         mViewPager = (ViewPager) findViewById(R.id.container);
         backBtn = (ImageView) findViewById(R.id.backBtn);
         cartBtn = (ImageView) findViewById(R.id.cartBtn);
@@ -154,7 +170,6 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         selfiWidth = FantacyApplication.dpToPx(DetailActivity.this, 100);
         helper = DatabaseHandler.getInstance(this);
 
-        FragmentMainActivity.setCartBadge(findViewById(R.id.parentLay),DetailActivity.this);
 
         itemsAry = (ArrayList<HashMap<String, String>>) getIntent().getExtras().get("items");
         position = (int) getIntent().getExtras().get("position");
@@ -170,6 +185,19 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         lastSwipePosition = position;
 
         getItemDetails(position);
+        String getLocalCart = preferences.getString("localCart", null);
+        if(getLocalCart != null){
+
+            getRetMainMap = new Gson().fromJson(
+                    getLocalCart, new TypeToken<HashMap<String, Map<String, String>>>() {}.getType()
+            );
+            //FragmentMainActivity.cartCount = String.valueOf(getRetMainMap.values().size());
+            Log.d(TAG, "addLocalCartItem3: "+ getRetMainMap+"...."+FragmentMainActivity.cartCount);
+
+            /*localItemCount();*/
+        }
+        //localCartCount = String.valueOf(getRetMainMap.size());
+        FragmentMainActivity.setCartBadge(findViewById(R.id.parentLay),DetailActivity.this);
 
         mViewPager.addOnPageChangeListener(pageChangeListener());
         searchBtn.setOnClickListener(this);
@@ -838,6 +866,7 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
                 public void onClick(View v) {
                     SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
                     String accesstoken = preferences.getString("TOKEN", null);
+                    String localItemId = preferences.getString("local_cartId", null);
 
                     if (accesstoken!= null) {
                         View view = mViewPager.findViewWithTag("posi" + mViewPager.getCurrentItem());
@@ -856,8 +885,21 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
                             addCartItem("");
                         }
                     } else {
-                        Intent login = new Intent(DetailActivity.this, SignInActivity.class);
-                        startActivity(login);
+                        View view = mViewPager.findViewWithTag("posi" + mViewPager.getCurrentItem());
+                        RecyclerView sizeList = (RecyclerView) view.findViewById(R.id.sizeList);
+                        LinearLayout sizeLay = (LinearLayout) view.findViewById(R.id.sizeLay);
+
+                        if (sizeLay.getVisibility() == View.VISIBLE) {
+                            SizeViewAdapter sizeViewAdapter = (SizeViewAdapter) sizeList.getAdapter();
+                            HashMap<String, String> sizeMap = sizeViewAdapter.getSizeDetails(selectedSizePosition);
+                            String selectedSize = sizeMap.get(Constants.TAG_NAME);
+                            String selectedQty = sizeMap.get(Constants.TAG_QTY);
+                                if (!selectedQty.equals("") && !selectedQty.equals("0")) {
+                                    addLocalCartItem(selectedSize);
+                                }
+                            } else {
+                            addLocalCartItem("");
+                        }
                     }
                 }
             });
@@ -1029,6 +1071,84 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
+    private void addLocalCartItem(String selectedSize) {
+        SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+        final ProgressDialog dialog = new ProgressDialog(DetailActivity.this);
+        dialog.setMessage(getString(R.string.pleasewait));
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+
+        Map<String, String> mapItem = new HashMap<String, String>();
+        mapItem.put("item_id", itemsAry.get(mViewPager.getCurrentItem()).get(Constants.TAG_ID));
+        mapItem.put("qty", "1");
+        mapItem.put("size", selectedSize);
+        mapItem.put("item_title", itemsAry.get(mViewPager.getCurrentItem()).get(Constants.TAG_ITEM_TITLE));
+        mapItem.put("item_price", itemsAry.get(mViewPager.getCurrentItem()).get(Constants.TAG_PRICE));
+        mapItem.put("item_main_price", itemsAry.get(mViewPager.getCurrentItem()).get(Constants.TAG_MAIN_PRICE));
+        mapItem.put("shipping_time", itemsAry.get(mViewPager.getCurrentItem()).get(Constants.TAG_SHIPPING_TIME));
+        Log.d(TAG, "addItemParams=" + mapItem);
+
+        String getLocalCart = preferences.getString("localCart", null);
+        Log.d(TAG, "addLocalCartItem1: " + getLocalCart);
+        if(getLocalCart == null){
+            Map<String, Map<String, String>> mainMap = new HashMap<String, Map<String, String>>();
+            mainMap.put(itemsAry.get(mViewPager.getCurrentItem()).get(Constants.TAG_ID),  mapItem);
+            Log.d(TAG, "addCartItemParams=" + mainMap);
+            jsonMap = new Gson().toJson(mainMap);
+
+            preferences.edit().putString("localCart", jsonMap).apply();
+            Toast.makeText(this, "Item Added to cart !", Toast.LENGTH_SHORT).show();
+            localCartsum = mainMap.values().size();
+            preferences.edit().putString("localCartSum", String.valueOf(localCartsum));
+
+            localItemCount();
+
+        } else {
+            retMainMap = new Gson().fromJson(
+                    getLocalCart, new TypeToken<HashMap<String, Map<String, String>>>() {}.getType()
+            );
+
+            localCartsum = retMainMap.values().size();
+            Log.d(TAG, "addLocalCartItem2: "+ retMainMap+"...."+localCartsum);
+            preferences.edit().putString("localCartSum", String.valueOf(localCartsum));
+
+
+            if(!retMainMap.containsKey(itemsAry.get(mViewPager.getCurrentItem()).get(Constants.TAG_ID))){
+                retMainMap.put(itemsAry.get(mViewPager.getCurrentItem()).get(Constants.TAG_ID),  mapItem);
+                jsonMap = new Gson().toJson(retMainMap);
+                preferences.edit().putString("localCart", jsonMap).apply();
+                Toast.makeText(this, "Item Added to cart !", Toast.LENGTH_SHORT).show();
+
+                localItemCount();
+
+            }else {
+                Toast.makeText(this, "Already added to cart", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+
+
+
+    }
+
+    private void localItemCount() {
+        SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+        try {
+            if (FragmentMainActivity.cartCount.equals("")) {
+                FragmentMainActivity.cartCount = "0";
+            }
+            int localCount = Integer.parseInt(FragmentMainActivity.cartCount) + 1;
+            FragmentMainActivity.cartCount = String.valueOf(localCount);
+            FragmentMainActivity.setCartBadge(findViewById(R.id.parentLay), DetailActivity.this);
+            preferences.edit().putString("localCartCount", String.valueOf(localCount));
+
+            Log.d(TAG, "localItemCount: "+"---"+String.valueOf(localCount));
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void getItemDetails(final int pos) {
         SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
         String accesstoken = preferences.getString("TOKEN", null);
@@ -1188,6 +1308,8 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
                         map.put(Constants.TAG_CATEGORYOFFER, categoryoffer.toString());
 
                         itemsAry.set(pos, map);
+
+                        Log.d(TAG, "onResponseDetail: " +itemsAry);
                         mSectionsPagerAdapter.notifyDataSetChanged();
                         setItemDetails(pos, map);
                     } else if (status.equalsIgnoreCase("error")) {
@@ -2436,8 +2558,15 @@ public class DetailActivity extends BaseActivity implements View.OnClickListener
                     c.putExtra("itemId", "0");
                     startActivity(c);
                 } else {
-                    Intent login = new Intent(this, LoginActivity.class);
-                    startActivity(login);
+                    /*Intent login = new Intent(this, LoginActivity.class);
+                    startActivity(login);*/
+                    String getLocalCart = preferences.getString("localCart", null);
+                    Intent c = new Intent(this, LocalCartActivity.class);
+                    c.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    c.putExtra("shippingId", "0");
+                    c.putExtra("itemId", "0");
+                    c.putExtra("localCartMap", getLocalCart);
+                    startActivity(c);
                 }
                 break;
             case R.id.cancelBtn:

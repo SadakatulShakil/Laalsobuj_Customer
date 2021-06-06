@@ -4,8 +4,12 @@
     android:id="@+id/mainLay"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@drawable/border_round"
     android:layoutDirection="@string/layout_direction"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
     android:orientation="vertical">
 
     <ImageView
@@ -96,7 +100,7 @@
             <com.futureskyltd.app.external.CustomTextView
                 android:id="@+id/itemPrice"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="$ 121"
                 android:textColor="@color/textPrimary"
                 android:textSize="@dimen/text_size_medium"

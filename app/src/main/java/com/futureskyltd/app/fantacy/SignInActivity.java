@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -50,6 +51,7 @@ public class SignInActivity extends AppCompatActivity {
     private EditText email, password;
     private TextView signIn;
     private String fbId;
+    private ImageView cancel;
     private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,13 @@ public class SignInActivity extends AppCompatActivity {
                 }
                 progressBar.setVisibility(View.VISIBLE);
                 setGeneralLogIn(uEmail, uPassword);
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
@@ -278,5 +287,6 @@ public class SignInActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         signIn = findViewById(R.id.signin);
         progressBar = findViewById(R.id.progressBar);
+        cancel = findViewById(R.id.cancel);
     }
 }

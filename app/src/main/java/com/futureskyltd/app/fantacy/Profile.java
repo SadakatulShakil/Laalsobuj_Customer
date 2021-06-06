@@ -34,6 +34,8 @@ import com.futureskyltd.app.utils.Constants;
 import com.futureskyltd.app.utils.DefensiveClass;
 import com.futureskyltd.app.utils.GetSet;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -62,7 +64,6 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
     private final String TAG = this.getClass().getSimpleName();
     ImageView backBtn, cartBtn, searchBtn, edit, backgroundImage, userImage;
     TextView userName, location, followBtn;
-    SharedPreferences preferences;
     String accesstoken, customerId, customerName;
     TabLayout tabLayout;
     ViewPager viewPager;
@@ -70,7 +71,9 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
     DatabaseHandler helper;
     private CustomerProfile customerProfile;
     HashMap<String, String> profileMap = new HashMap<String, String>();
-
+    SharedPreferences preferences;
+    Map<String, Map<String, String>> getRetMainMap;
+    private String localCartCount ="0";
 
     @Override
     public void onBackPressed() {
@@ -124,6 +127,19 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
         searchBtn.setOnClickListener(this);
         cartBtn.setOnClickListener(this);
 
+        preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+        String getLocalCart = preferences.getString("localCart", null);
+        if(getLocalCart != null){
+
+            getRetMainMap = new Gson().fromJson(
+                    getLocalCart, new TypeToken<HashMap<String, Map<String, String>>>() {}.getType()
+            );
+            //FragmentMainActivity.cartCount = String.valueOf(getRetMainMap.values().size());
+            Log.d(TAG, "addLocalCartItem3: "+ getRetMainMap+"...."+FragmentMainActivity.cartCount);
+
+            /*localItemCount();*/
+        }
+        //localCartCount = String.valueOf(getRetMainMap.size());
         FragmentMainActivity.setCartBadge(findViewById(R.id.parentLay),Profile.this);
 
         userId = (String) getIntent().getExtras().get("userId");
@@ -529,7 +545,7 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
                 SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
                 preferences.edit().putString("TOKEN",null).apply();
                 finish();
-                Intent p = new Intent(Profile.this, SignInActivity.class);
+                Intent p = new Intent(Profile.this, FragmentMainActivity.class);
                 p.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(p);
             }

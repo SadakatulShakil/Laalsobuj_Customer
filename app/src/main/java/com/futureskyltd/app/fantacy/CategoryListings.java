@@ -48,6 +48,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -118,6 +120,9 @@ public class CategoryListings extends BaseActivity implements View.OnClickListen
     private final static int REQUEST_ID_MULTIPLE_PERMISSIONS = 0x2;
     private int priceMinimum = 1;
     private int priceMaximum = 5000;
+    SharedPreferences preferences;
+    Map<String, Map<String, String>> getRetMainMap;
+    private String localCartCount ="0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,6 +164,7 @@ public class CategoryListings extends BaseActivity implements View.OnClickListen
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(CategoryListings.this, R.color.progresscolor));
 
+
         from = (String) getIntent().getExtras().get("from");
         if (from.equals("category")) {
             catState = (String) getIntent().getExtras().get("catState");
@@ -186,6 +192,20 @@ public class CategoryListings extends BaseActivity implements View.OnClickListen
             }
         }
 
+        preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+        String getLocalCart = preferences.getString("localCart", null);
+        if(getLocalCart != null){
+
+            getRetMainMap = new Gson().fromJson(
+                    getLocalCart, new TypeToken<HashMap<String, Map<String, String>>>() {}.getType()
+            );
+            //FragmentMainActivity.cartCount = String.valueOf(getRetMainMap.values().size());
+            Log.d(TAG, "addLocalCartItem3: "+ getRetMainMap+"...."+FragmentMainActivity.cartCount);
+
+            /*localItemCount();*/
+        }
+        localCartCount = String.valueOf(getRetMainMap.size());
+        //FragmentMainActivity.setCartBadge(findViewById(R.id.parentLay),DetailActivity.this, localCartCount);
         FragmentMainActivity.setCartBadge(findViewById(R.id.parentLay), CategoryListings.this);
 
         backBtn.setVisibility(View.VISIBLE);

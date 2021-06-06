@@ -1,6 +1,7 @@
 package com.futureskyltd.app.fantacy;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -41,11 +42,16 @@ import com.futureskyltd.app.utils.DefensiveClass;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -76,7 +82,7 @@ public class FragmentMainActivity extends BaseActivity
     Snackbar snackbar;
     Display display;
     private SharedPreferences preferences;
-    private String accesstoken, customerId="", customerName="";
+    private String accesstoken, localCartCount = "0", customerId="", customerName="";
     ProgressBar creditProgress;
     RelativeLayout messageBadgeLay, notifyBadgeLay, notiBadgeLay, cartBadgeLay, userLay, credit_Lay, feedsBadgeLay;
     TextView title, saveBtn, messageBadgeCount, notifyBadgeCount, notiBadgeCount, cartBadgeCount, credit, feedsCount;
@@ -89,6 +95,9 @@ public class FragmentMainActivity extends BaseActivity
     public static String messageCount = "0", notifyCount = "0", cartCount = "0", creditAmount = "0", currency = "$", feedCount = "0";
     private LinearLayout usrLayout;
     NetworkReceiver networkReceiver;
+    Map<String, Map<String, String>> getRetMainMap;
+    private Map<String, Map<String, String>> getLocalCartMap;
+    private ArrayList<Map<String, String>> localCartArrayList;
 
 
     @Override
@@ -134,14 +143,45 @@ public class FragmentMainActivity extends BaseActivity
         accesstoken = preferences.getString("TOKEN", null);
         customerId = preferences.getString("customer_id", null);
         customerName = preferences.getString("customer_name", null);
-        Log.d(TAG, "onResponseAuth: "+customerId+"......"+customerName);
+        localCartCount = preferences.getString("localCart", null);
+
+        //localCartJson = intent.getStringExtra("localCartMap");
+
+        if(localCartCount != null){
+
+            getLocalCartMap = new Gson().fromJson(
+                    localCartCount, new TypeToken<HashMap<String, Map<String, String>>>() {}.getType()
+            );
+
+            Log.d(TAG, "localSize: "+ getLocalCartMap.size()+ "....."+getLocalCartMap);
+            if(accesstoken != null){
+                Iterator it = getLocalCartMap.entrySet().iterator();
+
+                while (it.hasNext()){
+                    Map.Entry pairs = (Map.Entry) it.next();
+                    Log.d(TAG, "onTest: " + pairs.getKey()+"...."+pairs.getValue());
+                }
+
+                localCartArrayList = new ArrayList<Map<String, String>>(getLocalCartMap.values());
+                for(Map<String, String> data : localCartArrayList){
+                    String itemId = data.get("item_id");
+                    String size = data.get("size");
+                    String qty = data.get("qty");
+                    Log.d(TAG, "onTest3: " + data.get("item_id")+">>>"+data.get("size")+">>>"+data.get("qty"));
+                    //Log.d(TAG, "onTest3: " + localCartArrayList.size());
+                    AddLocalCartToServer(itemId, size, qty);
+                }
+            }
+
+
+        }
+
 
 
         if (getIntent().getStringExtra("from") != null && getIntent().getStringExtra("from").equals("block")) {
             Intent login = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(login);
         }
-
         if (savedInstanceState != null)
             mContent = getSupportFragmentManager().getFragment(
                     savedInstanceState, "mContent");
@@ -200,6 +240,7 @@ public class FragmentMainActivity extends BaseActivity
             }
         });
 
+
         navigationView.post(new Runnable() {
 
             @Override
@@ -222,20 +263,7 @@ public class FragmentMainActivity extends BaseActivity
             }
         });
 
-        /*if (GetSet.isLogged()) {
-            if (LoginActivity.logedfirst.equalsIgnoreCase("yes")) {
-                LoginActivity.logedfirst = "no";
-                Intent i = new Intent(this, WelcomeScreen.class);
-                i.putExtra("type", "first");
-                this.startActivity(i);
-            }
-            userName.setText(GetSet.getFullName());
-            if (!GetSet.getImageUrl().equals("")) {
-                Picasso.get().load(GetSet.getImageUrl()).into(userImage);
-            }
-        } else {
-            userName.setText(getString(R.string.guest));
-        }*/
+
         if(accesstoken != null){
 
             userName.setText(customerName);/// get from auth user data////
@@ -259,10 +287,86 @@ public class FragmentMainActivity extends BaseActivity
         FantacyApplication.getInstance().setConnectivityListener(this);
     }
 
+    private void AddLocalCartToServer(String itemId, String size, String qty) {
+        SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+        String accesstoken = preferences.getString("TOKEN", null);
+        String customerId = preferences.getString("customer_id", null);
+        final ProgressDialog dialog = new ProgressDialog(FragmentMainActivity.this);
+        dialog.setMessage(getString(R.string.pleasewait));
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        StringRequest req = new StringRequest(Request.Method.POST, Constants.API_ADD_TO_CART, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String res) {
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+                try {
+                    Log.v(TAG, "addCartItemRes=" + res);
+                    JSONObject json = new JSONObject(res);
+                    String status = DefensiveClass.optString(json, Constants.TAG_STATUS);
+                    if (status.equalsIgnoreCase("true")) {
+                        preferences.edit().putString("localCart",null).apply();
+                        FantacyApplication.showToast(FragmentMainActivity.this, DefensiveClass.optString(json, Constants.TAG_MESSAGE), Toast.LENGTH_SHORT);
+                        try {
+                            if (FragmentMainActivity.cartCount.equals("")) {
+                                FragmentMainActivity.cartCount = "0";
+                            }
+                            int count = Integer.parseInt(FragmentMainActivity.cartCount) + 1;
+                            FragmentMainActivity.cartCount = String.valueOf(count);
+                            FragmentMainActivity.setCartBadge(findViewById(R.id.parentLay), FragmentMainActivity.this);
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                        }
+                    } /*else if (DefensiveClass.optString(json, Constants.TAG_MESSAGE).trim().equals(" Item already in cart".trim()))
+                        FantacyApplication.showToast(FragmentMainActivity.this, getString(R.string.item_already_in_cart), Toast.LENGTH_SHORT);
+                    else
+                        FantacyApplication.showToast(FragmentMainActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT);*/
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "addCartItemError: " + error.getMessage());
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("user_id", customerId);
+                map.put("item_id", itemId);
+                map.put("qty", qty);
+                map.put("size", size);
+                Log.v(TAG, "addCartItemParams=" + map);
+                return map;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + accesstoken);
+                Log.d(TAG, "getHeaders: " + accesstoken);
+                return headers;
+            }
+
+        };
+        dialog.show();
+        FantacyApplication.getInstance().addToRequestQueue(req);
+    }
+
+
     private void getAuthUserInfo() {
         if(accesstoken != null){
-
-
 
         }
     }
@@ -321,6 +425,8 @@ public class FragmentMainActivity extends BaseActivity
                 if (cartBtn.getVisibility() == View.VISIBLE) {
                     cartBadgeLay.setVisibility(View.VISIBLE);
                     cartBadgeCount.setText(cartCount);
+
+                    Log.d(TAG, "setBadgeCounter: " + cartCount);
                 } else {
                     cartBadgeLay.setVisibility(View.INVISIBLE);
                 }
@@ -335,8 +441,20 @@ public class FragmentMainActivity extends BaseActivity
             notifyBadgeLay.setVisibility(View.INVISIBLE);
             notiBadgeLay.setVisibility(View.INVISIBLE);
             feedsBadgeLay.setVisibility(View.INVISIBLE);
-            cartBadgeLay.setVisibility(View.INVISIBLE);
+            cartBadgeLay.setVisibility(View.VISIBLE);
             creditProgress.setVisibility(View.GONE);
+
+            // Cart badge count
+            if (!FragmentMainActivity.cartCount.equals("0") && !FragmentMainActivity.cartCount.equals("")) {
+                if (cartBtn.getVisibility() == View.VISIBLE) {
+                    cartBadgeLay.setVisibility(View.VISIBLE);
+                    cartBadgeCount.setText(cartCount);
+                } else {
+                    cartBadgeLay.setVisibility(View.INVISIBLE);
+                }
+            } else {
+                cartBadgeLay.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
@@ -413,12 +531,9 @@ public class FragmentMainActivity extends BaseActivity
     }
 
     public static void setCartBadge(View parent, Context context) {
-        SharedPreferences preferences = context.getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
-        String accesstoken = preferences.getString("TOKEN", null);
-
         TextView cartBadgeCount = (TextView) parent.findViewById(R.id.cartBadgeCount);
         RelativeLayout cartBadgeLay = (RelativeLayout) parent.findViewById(R.id.cartBadgeLay);
-        if (accesstoken != null && !FragmentMainActivity.cartCount.equals("0") && !FragmentMainActivity.cartCount.equals("")) {
+        if (!FragmentMainActivity.cartCount.equals("0") && !FragmentMainActivity.cartCount.equals("")) {
             cartBadgeLay.setVisibility(View.VISIBLE);
             cartBadgeCount.setText(cartCount);
         } else {
@@ -931,6 +1046,19 @@ public class FragmentMainActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
+
+        String getLocalCart = preferences.getString("localCart", null);
+        if(getLocalCart != null){
+
+            getRetMainMap = new Gson().fromJson(
+                    getLocalCart, new TypeToken<HashMap<String, Map<String, String>>>() {}.getType()
+            );
+            FragmentMainActivity.cartCount = String.valueOf(getRetMainMap.values().size());
+
+            Log.d(TAG, "onResponseAuth: "+customerId+"......"+getRetMainMap+"......."+FragmentMainActivity.cartCount);
+
+        }
+
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(networkReceiver, intentFilter);
         FantacyApplication.showSnack(this, drawer, NetworkReceiver.isConnected());
@@ -943,9 +1071,14 @@ public class FragmentMainActivity extends BaseActivity
             getBadgeCount();
             Log.d(TAG, "onResume: " +accesstoken);
         } else {
+            setLocalBadgeCounter();
             setBadgeCounter();
         }
         getCreditCurrency();
+    }
+
+    private void setLocalBadgeCounter() {
+
     }
 
     @Override
@@ -1066,8 +1199,15 @@ public class FragmentMainActivity extends BaseActivity
                     c.putExtra("itemId", "0");
                     startActivity(c);
                 } else {
-                    Intent login = new Intent(this, SignInActivity.class);
-                    startActivity(login);
+                    /*Intent login = new Intent(this, SignInActivity.class);
+                    startActivity(login);*/
+                    String getLocalCart = preferences.getString("localCart", null);
+                    Intent c = new Intent(this, LocalCartActivity.class);
+                    c.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    c.putExtra("shippingId", "0");
+                    c.putExtra("itemId", "0");
+                    c.putExtra("localCartMap", getLocalCart);
+                    startActivity(c);
                 }
                 break;
             case R.id.barcode:
