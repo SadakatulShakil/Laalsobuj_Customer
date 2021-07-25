@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -62,6 +63,7 @@ public class SignUpActivity extends AppCompatActivity {
     private InfoApaAdapter mInfoApaAdapter;
     private Spinner districtSpinner, upazilaSpinner, infoApaSpinner;
     private ProgressBar progressBar;
+    private ImageView cancel;
     private CustomTextView signUpBtn, errorMessage, goBack, signUpWithPhone;
     private CustomEditText nameEt, userNameEt, userEmailEt, userPhoneEt, userStoreNameEt, userAddressEt, userZipEt, passwordEt, confirmPasswordEt;
 
@@ -88,6 +90,13 @@ public class SignUpActivity extends AppCompatActivity {
 
                 Log.d(TAG, "onClick: "+ "success");
                 setSignUp();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -495,6 +504,7 @@ public class SignUpActivity extends AppCompatActivity {
         fbLoginLay = findViewById(R.id.fbLay);
         normalSignUpLay = findViewById(R.id.signuplay);
         demoAppBarLay = findViewById(R.id.appBar);
+        cancel = findViewById(R.id.cancel);
 
         districtSpinner = findViewById(R.id.userDistrictSpinner);
         upazilaSpinner = findViewById(R.id.userUpazilaSpinner);

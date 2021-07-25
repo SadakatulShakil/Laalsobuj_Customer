@@ -39,7 +39,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignInActivity extends BaseActivity{
 
     private CustomTextView signUpBtn;
     private LinearLayout fbSignIn;
@@ -81,13 +81,13 @@ public class SignInActivity extends AppCompatActivity {
                 String uPassword = password.getText().toString().trim();
 
                 if (uEmail.isEmpty()) {
-                    email.setError("Please enter correct email/phone");
+                    email.setError(getString(R.string.please_enter_valid_user));
                     email.requestFocus();
                     return;
                 }
 
                 if (uPassword.isEmpty()) {
-                    password.setError("This field is required!");
+                    password.setError(getString(R.string.password_required));
                     password.requestFocus();
                     return;
                 }
@@ -116,6 +116,7 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<GeneralLogIn> call, Response<GeneralLogIn> response) {
                 if(response.code() == 200){
+                    progressBar.setVisibility(View.GONE);
                     GeneralLogIn generalLogIn = response.body();
                     if(generalLogIn.getStatus().equals("true")){
                         SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
@@ -129,18 +130,21 @@ public class SignInActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     }else {
-                        Toast.makeText(SignInActivity.this, "Please enter correct email/ phone", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(SignInActivity.this, getString(R.string.no_usr_found), Toast.LENGTH_SHORT).show();
                     }
                 }else {
-                    Toast.makeText(SignInActivity.this, "There is a server error", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(SignInActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
 
                 }
             }
 
             @Override
             public void onFailure(Call<GeneralLogIn> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(SignInActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "onFailure: "+t.getCause());
+                Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
             }
         });
 
@@ -228,7 +232,7 @@ public class SignInActivity extends AppCompatActivity {
                                             startActivity(intent);
                                             finish();
                                         }else if (shortAuth.getMessage().equals("disable")) {
-                                            Toast.makeText(SignInActivity.this, "You are Blocked Your Account deleted by Admin! ", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(SignInActivity.this, getString(R.string.admin_block), Toast.LENGTH_SHORT).show();
                                         }else if (shortAuth.getMessage().equals("pending")) {
                                             appBarLayout.setVisibility(View.GONE);
                                             relativeLayout.setVisibility(View.GONE);

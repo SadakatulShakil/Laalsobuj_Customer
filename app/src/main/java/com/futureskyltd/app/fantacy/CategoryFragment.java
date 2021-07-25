@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -134,7 +135,7 @@ public class CategoryFragment extends Fragment {
             @Override
             public void onResponse(String res) {
                 try {
-                    Log.v(TAG, "getCategoryRes="+res);
+                    Log.d(TAG, "getCategoryRes="+res);
                     JSONObject json = new JSONObject(res);
                     progressLay.setVisibility(View.GONE);
                     String status = DefensiveClass.optString(json, Constants.TAG_STATUS);
@@ -196,7 +197,7 @@ public class CategoryFragment extends Fragment {
                 return map;
             }
 
-           /* @Override
+         /*   @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Authorization", "Bearer " + accesstoken);

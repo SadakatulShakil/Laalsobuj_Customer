@@ -81,7 +81,7 @@ public class Constants {
     public static final String API_LIKEDITEM = URL + "likedItems";
     public static final String API_ITEMLIKE = URL + "itemLike";
     public static final String API_GET_CATEGORIES = URL + "getCategories";
-    public static final String API_GET_ITEMS = URL + "getItems";
+    public static final String API_GET_ITEMS = URL + "getitems";
     public static final String API_MY_COLLECTION = URL + "myCollection";
     public static final String API_FOLLOW_STORE = URL + "followStore";
     public static final String API_UNFOLLOW_STORE = URL + "unfollowStore";

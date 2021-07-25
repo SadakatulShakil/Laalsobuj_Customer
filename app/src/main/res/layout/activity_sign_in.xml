@@ -246,7 +246,7 @@
                     <com.futureskyltd.app.external.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="If You are a new User? "
+                        android:text="@string/new_user"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_size_medium"
                         app:typeface="font_bold.ttf" />
@@ -255,7 +255,7 @@
                     android:id="@+id/setSignUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sign up first "
+                    android:text="@string/sign_up"
                     android:textColor="@color/red"
                     android:textStyle="bold"
                     android:layout_marginLeft="10dp"

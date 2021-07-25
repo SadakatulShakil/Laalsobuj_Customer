@@ -122,7 +122,7 @@ public class CategoryListings extends BaseActivity implements View.OnClickListen
     private int priceMaximum = 5000;
     SharedPreferences preferences;
     Map<String, Map<String, String>> getRetMainMap;
-    private String localCartCount ="0";
+    private String localCartCount ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -204,7 +204,7 @@ public class CategoryListings extends BaseActivity implements View.OnClickListen
 
             /*localItemCount();*/
         }
-        localCartCount = String.valueOf(getRetMainMap.size());
+        //localCartCount = String.valueOf(getRetMainMap.size());
         //FragmentMainActivity.setCartBadge(findViewById(R.id.parentLay),DetailActivity.this, localCartCount);
         FragmentMainActivity.setCartBadge(findViewById(R.id.parentLay), CategoryListings.this);
 
@@ -342,7 +342,7 @@ public class CategoryListings extends BaseActivity implements View.OnClickListen
             @Override
             public void onResponse(String res) {
                 try {
-                    Log.v(TAG, "getAllItemsRes=" + offset + " " + res);
+                    Log.d(TAG, "getAllItemsRes=" + offset + " " + res);
                     JSONObject json = new JSONObject(res);
                     progressLay.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.VISIBLE);
@@ -447,11 +447,6 @@ public class CategoryListings extends BaseActivity implements View.OnClickListen
                 if (!stringColor.equals(""))
                     map.put("color", stringColor);
 
-
-            /*    if (affliate_only)
-                    map.put("affliate_only", "true");
-                if (buy_only)
-                    map.put("buy_only", "true");*/
                 if (distanceBar.getProgress() != 0 && mylocation != null) {
                     map.put("distance", String.valueOf(distanceBar.getProgress()));
                     map.put("lat", String.valueOf(mylocation.getLatitude()));
@@ -468,7 +463,7 @@ public class CategoryListings extends BaseActivity implements View.OnClickListen
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                Log.v(TAG, "getAllItemsParams=" + map);
+                Log.d(TAG, "getAllItemsParams=" + map);
                 return map;
             }
 

@@ -28,33 +28,52 @@
             app:corner_radius="100dip"
             app:round_background="true"/>
 
+
         <LinearLayout
-            android:id="@+id/usrLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:layout_centerVertical="true"
+            android:orientation="horizontal"
             android:layout_toEndOf="@+id/userImage"
             android:layout_toStartOf="@+id/homeBtn"
-            android:orientation="vertical">
+            android:layout_centerVertical="true">
 
-            <com.futureskyltd.app.external.CustomTextView
-                app:typeface="font_regular.ttf"
+            <LinearLayout
+                android:id="@+id/usrLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/welcome"
-                android:textSize="@dimen/text_size_small"
-                android:textColor="@color/white"/>
+                android:layout_weight="1"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
 
-            <com.futureskyltd.app.external.CustomTextView
-                app:typeface="font_bold.ttf"
-                android:id="@+id/userName"
+                <com.futureskyltd.app.external.CustomTextView
+                    app:typeface="font_regular.ttf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/welcome"
+                    android:textSize="@dimen/text_size_small"
+                    android:textColor="@color/white"/>
+
+                <com.futureskyltd.app.external.CustomTextView
+                    app:typeface="font_bold.ttf"
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:text="User name"
+                    android:textSize="@dimen/text_size_medium"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/loginOption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="4dp"
-                android:text="User name"
-                android:textSize="@dimen/text_size_medium"
-                android:textColor="@color/white"/>
+                android:text="Login"
+                android:layout_gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
         </LinearLayout>
 
         <ImageView

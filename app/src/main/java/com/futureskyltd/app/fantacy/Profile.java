@@ -153,6 +153,7 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
             setupViewPager(viewPager);
             tabLayout.setupWithViewPager(viewPager);
             changeTabsFont();
+
         }
 
         helper = DatabaseHandler.getInstance(this);
@@ -163,13 +164,18 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
         } else {
             edit.setVisibility(View.INVISIBLE);
             followBtn.setVisibility(View.VISIBLE);
+            if(getIntent().getExtras().get("follow_status").equals("Unfollow")){
+                followBtn.setText(getString(R.string.follow));
+            }else{
+                followBtn.setText(getString(R.string.following));
+            }
         }
 
         // register connection status listener
         FantacyApplication.getInstance().setConnectivityListener(this);
     }
 
-   /* private void getProfile() {
+    /*private void getProfile() {
 
         StringRequest req = new StringRequest(Request.Method.POST, Constants.API_PROFILE, new Response.Listener<String>() {
             @Override
@@ -258,7 +264,7 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
                     } else if (status.equalsIgnoreCase("error")) {
                         String message = DefensiveClass.optString(json, Constants.TAG_MESSAGE);
                         if (message.equals(getString(R.string.admin_error)) || message.equals(getString(R.string.admin_delete_error))) {
-                           *//* finish();
+                            finish();
                             if (PaymentStatus.activity == null) {
                                 Intent i = new Intent(Profile.this, PaymentStatus.class);
                                 if (userId.equals(GetSet.getUserId())) {
@@ -267,15 +273,15 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
                                     i.putExtra("from", "other_user_block");
                                 }
                                 startActivity(i);
-                            }*//*
+                            }
                         } else {
-                            *//*Intent i = new Intent(Profile.this, PaymentStatus.class);
+                            Intent i = new Intent(Profile.this, PaymentStatus.class);
                             i.putExtra("from", "maintenance");
                             startActivity(i);
-                            finish();*//*
+                            finish();
                         }
                     } else if (status.equalsIgnoreCase("false")) {
-                        *//*if (PaymentStatus.activity == null) {
+                        if (PaymentStatus.activity == null) {
                             Intent i = new Intent(Profile.this, PaymentStatus.class);
                             if (userId.equals(GetSet.getUserId())) {
                                 i.putExtra("from", "delete");
@@ -284,7 +290,7 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
                             }
                             startActivity(i);
                             finish();
-                        }*//*
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -604,10 +610,10 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
             Intent i = new Intent(Profile.this, FragmentMainActivity.class);
             startActivity(i);
             return true;
-        } else if (id == R.id.logout) {
+        } /*else if (id == R.id.logout) {
             signoutDialog();
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -623,17 +629,48 @@ public class Profile extends BaseActivity implements View.OnClickListener, Netwo
         Retrofit retrofit = RetrofitClient.getRetrofitClient();
         ApiInterface api = retrofit.create(ApiInterface.class);
 
-        Call<CustomerProfile> getProfileCall = api.postByCustomerProfile(customerId, customerId);
+        Call<CustomerProfile> getProfileCall = api.postByCustomerProfile(userId, customerId);
 
         getProfileCall.enqueue(new Callback<CustomerProfile>() {
             @Override
             public void onResponse(Call<CustomerProfile> call, retrofit2.Response<CustomerProfile> response) {
                 if(response.code() == 200){
                     customerProfile = response.body();
+                    Log.d(TAG, "onProfile: " + customerProfile.toString());
+                    userId = String.valueOf(customerProfile.getResult().getUserId());
+                    String full_name = customerProfile.getResult().getFullName();
+                    String user_name = customerProfile.getResult().getUserName();
+                    String haspassword = customerProfile.getResult().getHasPassword();
+                    String user_image = customerProfile.getResult().getUserImage();
+                    String follow_status = customerProfile.getResult().getFollowStatus();
+                    String following = String.valueOf(customerProfile.getResult().getFollowing());
+                    String followers = String.valueOf(customerProfile.getResult().getFollowers());
+                    String follow_stores = String.valueOf(customerProfile.getResult().getFollowStores());
+                    String liked_count = String.valueOf(customerProfile.getResult().getLikedCount());
+                    String collection_count = String.valueOf(customerProfile.getResult().getCollectionCount());
+
+
+                    profileMap.put(Constants.TAG_FULL_NAME, full_name);
+                    profileMap.put(Constants.TAG_HAS_PASSWORD, haspassword);
+                    profileMap.put(Constants.TAG_USER_NAME, user_name);
+                    profileMap.put(Constants.TAG_USER_IMAGE, user_image);
+                    profileMap.put(Constants.TAG_FOLLOW_STATUS, follow_status);
+                    profileMap.put(Constants.TAG_FOLLOWING, following);
+                    profileMap.put(Constants.TAG_FOLLOWERS, followers);
+                    profileMap.put(Constants.TAG_FOLLOW_STORES, follow_stores);
+                    profileMap.put(Constants.TAG_LIKED_COUNT, liked_count);
+                    profileMap.put(Constants.TAG_COLLECTION_COUNT, collection_count);
+
                     if(customerProfile.getStatus().equals("true")){
                         userName.setText(customerProfile.getResult().getFullName());
-                        Picasso.get().load(customerProfile.getResult().getUserImage()).into(userImage);
-                        Picasso.get().load(customerProfile.getResult().getUserImage()).into(backgroundImage);
+                        if(customerProfile.getResult().getUserImage() != null && !customerProfile.getResult().getUserImage().equals("")){
+
+                            Picasso.get().load(customerProfile.getResult().getUserImage()).into(userImage);
+                            Picasso.get().load(customerProfile.getResult().getUserImage()).into(backgroundImage);
+                        }else {
+                            Picasso.get().load(R.mipmap.appicon_round).into(userImage);
+                            Picasso.get().load(R.mipmap.appicon_round).into(backgroundImage);
+                        }
                     }else{
                         Toast.makeText(Profile.this, "Something is error", Toast.LENGTH_SHORT).show();
 

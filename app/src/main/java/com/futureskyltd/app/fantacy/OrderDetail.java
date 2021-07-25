@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -45,6 +46,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -243,6 +245,9 @@ public class OrderDetail extends BaseActivity implements View.OnClickListener, N
     }
 
     private void getData() {
+        SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+        String accesstoken = preferences.getString("TOKEN", null);
+        String customerId = preferences.getString("customer_id", null);
         StringRequest req = new StringRequest(Request.Method.POST, Constants.API_ORDER_DETAILS, new Response.Listener<String>() {
             @Override
             public void onResponse(String res) {
@@ -404,10 +409,18 @@ public class OrderDetail extends BaseActivity implements View.OnClickListener, N
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("user_id", GetSet.getUserId());
+                map.put("user_id", customerId);
                 map.put("order_id", orderID);
                 Log.i(TAG, "getDataParams: " + map);
                 return map;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + accesstoken);
+                Log.d(TAG, "getHeaders: " + accesstoken);
+                return headers;
             }
         };
         FantacyApplication.getInstance().addToRequestQueue(req);
@@ -892,11 +905,14 @@ public class OrderDetail extends BaseActivity implements View.OnClickListener, N
 
     private void changeStatus(final String status) {
 
+        SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+        String accesstoken = preferences.getString("TOKEN", null);
+        String customerId = preferences.getString("customer_id", null);
         StringRequest req = new StringRequest(Request.Method.POST, Constants.API_CHANGE_STATUS, new Response.Listener<String>() {
             @Override
             public void onResponse(String res) {
                 try {
-                    Log.i(TAG, "changeStatusRes= " + res);
+                    Log.d(TAG, "changeStatusRes= " + res);
                     if (pd.isShowing()) {
                         pd.dismiss();
                     }
@@ -944,8 +960,16 @@ public class OrderDetail extends BaseActivity implements View.OnClickListener, N
                     map.put("shipping_date", "");
                     map.put("reason", "");
                 }
-                Log.v(TAG, "changeStatusParams=" + map);
+                Log.d(TAG, "changeStatusParams=" + map);
                 return map;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + accesstoken);
+                Log.d(TAG, "getHeaders: " + accesstoken);
+                return headers;
             }
         };
         pd.show();
@@ -953,7 +977,9 @@ public class OrderDetail extends BaseActivity implements View.OnClickListener, N
     }
 
     private void uploadSelfie(final String imageurl) {
-
+        SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+        String accesstoken = preferences.getString("TOKEN", null);
+        String customerId = preferences.getString("customer_id", null);
         StringRequest req = new StringRequest(Request.Method.POST, Constants.API_UPLOAD_SELFIE, new Response.Listener<String>() {
             @Override
             public void onResponse(String res) {
@@ -995,11 +1021,19 @@ public class OrderDetail extends BaseActivity implements View.OnClickListener, N
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("user_id", GetSet.getUserId());
+                map.put("user_id", customerId);
                 map.put("image", imageurl);
                 map.put("item_id", uploadItemID);
                 Log.v(TAG, "uploadSelfieParams=" + map);
                 return map;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + accesstoken);
+                Log.d(TAG, "getHeaders: " + accesstoken);
+                return headers;
             }
         };
         pd.show();

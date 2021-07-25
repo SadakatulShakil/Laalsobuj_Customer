@@ -1,6 +1,7 @@
 package com.futureskyltd.app.fantacy;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +11,12 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.text.format.Formatter;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -20,6 +24,8 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -45,11 +51,18 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -81,6 +94,7 @@ public class FragmentMainActivity extends BaseActivity
     EditText searchView;
     Snackbar snackbar;
     Display display;
+    LinearLayout logoutLay;
     private SharedPreferences preferences;
     private String accesstoken, localCartCount = "0", customerId="", customerName="";
     ProgressBar creditProgress;
@@ -88,7 +102,7 @@ public class FragmentMainActivity extends BaseActivity
     TextView title, saveBtn, messageBadgeCount, notifyBadgeCount, notiBadgeCount, cartBadgeCount, credit, feedsCount;
     ImageView navBtn, likedBtn, cartBtn, notifyBtn, homeBtn, appName, searchBtn, barcode, messageBadgeBg, notifyBadgeBg, feedsBadgeBg;
     public static ImageView userImage;
-    public static TextView userName;
+    public static TextView userName, loginOption;
     public static Context context;
     int exit = 0;
     public static boolean orders = false;
@@ -107,6 +121,12 @@ public class FragmentMainActivity extends BaseActivity
         context = this;
         getAuthUserInfo();
         networkReceiver = new NetworkReceiver();
+
+        WifiManager wm = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+        String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
+
+        Log.d(TAG, "device ip: "+ ip);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         listView = (ListView) findViewById(R.id.nav_menu_listview);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -122,6 +142,7 @@ public class FragmentMainActivity extends BaseActivity
         searchBtn = (ImageView) findViewById(R.id.searchBtn);
         saveBtn = (TextView) findViewById(R.id.saveBtn);
         barcode = (ImageView) findViewById(R.id.barcode);
+        logoutLay = (LinearLayout) navigationView.findViewById(R.id.logout);
         notiBadgeLay = (RelativeLayout) findViewById(R.id.notiBadgeLay);
         notiBadgeCount = (TextView) findViewById(R.id.notiBadgeCount);
         cartBadgeCount = (TextView) findViewById(R.id.cartBadgeCount);
@@ -134,6 +155,7 @@ public class FragmentMainActivity extends BaseActivity
         userImage = (ImageView) header.findViewById(R.id.userImage);
         usrLayout = (LinearLayout) header.findViewById(R.id.usrLayout);
         userName = (TextView) header.findViewById(R.id.userName);
+        loginOption = (TextView) header.findViewById(R.id.loginOption);
         creditProgress = (ProgressBar) header.findViewById(R.id.creditProgress);
         credit = (TextView) header.findViewById(R.id.credit);
         display = this.getWindowManager().getDefaultDisplay();
@@ -146,7 +168,13 @@ public class FragmentMainActivity extends BaseActivity
         localCartCount = preferences.getString("localCart", null);
 
         //localCartJson = intent.getStringExtra("localCartMap");
-
+        loginOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FragmentMainActivity.this, SignInActivity.class);
+                startActivity(intent);
+            }
+        });
         if(localCartCount != null){
 
             getLocalCartMap = new Gson().fromJson(
@@ -267,6 +295,7 @@ public class FragmentMainActivity extends BaseActivity
         if(accesstoken != null){
 
             userName.setText(customerName);/// get from auth user data////
+            loginOption.setVisibility(View.GONE);
         }
 
         navBtn.setOnClickListener(this);
@@ -280,11 +309,32 @@ public class FragmentMainActivity extends BaseActivity
         saveBtn.setOnClickListener(this);
         barcode.setOnClickListener(this);
         likedBtn.setOnClickListener(this);
+        logoutLay.setOnClickListener(this);
 
         setBadgeCounter();
 
         // register connection status listener
         FantacyApplication.getInstance().setConnectivityListener(this);
+    }
+
+    private String getLocalIpAddress() throws Exception {
+        URL whatismyip = new URL("http://checkip.amazonaws.com");
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new InputStreamReader(
+                    whatismyip.openStream()));
+            String ip = in.readLine();
+            Log.d(TAG, "getLocalIpAddress: "+ ip);
+            return ip;
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     private void AddLocalCartToServer(String itemId, String size, String qty) {
@@ -1015,6 +1065,11 @@ public class FragmentMainActivity extends BaseActivity
                 switchContent(new Help());
                 break;
             case R.id.rateApp:
+                try {
+                    getLocalIpAddress();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                /* item.setCheckable(false);
                 Uri uri = Uri.parse("market://details?id=" + getPackageName());
                 Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
@@ -1231,6 +1286,70 @@ public class FragmentMainActivity extends BaseActivity
                 Intent s = new Intent(FragmentMainActivity.this, RecentSearch.class);
                 startActivity(s);
                 break;
+
+            case R.id.logout:
+                showLogoutConfirm();
+                break;
+        }
+    }
+
+    private void showLogoutConfirm() {
+
+        final Dialog dialog = new Dialog(FragmentMainActivity.this);
+        Display display = getWindowManager().getDefaultDisplay();
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setContentView(R.layout.default_popup);
+        dialog.getWindow().setLayout(display.getWidth() * 90 / 100, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(false);
+
+        TextView title = (TextView) dialog.findViewById(R.id.title);
+        TextView yes = (TextView) dialog.findViewById(R.id.yes);
+        TextView no = (TextView) dialog.findViewById(R.id.no);
+
+        title.setText(getString(R.string.reallySignOut));
+        yes.setText(getString(R.string.yes));
+        no.setText(getString(R.string.no));
+
+        no.setVisibility(View.VISIBLE);
+
+        yes.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+               /* SharedPreferences pref = getApplicationContext().getSharedPreferences("FantacyPref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.clear();
+                editor.commit();
+                GetSet.reset();
+                HomeFragment.resetAry();
+                FragmentMainActivity.messageCount = "0";
+                FragmentMainActivity.notifyCount = "0";
+                FragmentMainActivity.feedCount = "0";
+                FragmentMainActivity.cartCount = "0";
+                FragmentMainActivity.creditAmount = "0";
+                FragmentMainActivity.currency = "$";
+                removeToken();*/
+                SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+                preferences.edit().putString("TOKEN",null).apply();
+                finish();
+                Intent p = new Intent(FragmentMainActivity.this, FragmentMainActivity.class);
+                p.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(p);
+            }
+        });
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        if (!dialog.isShowing()) {
+            dialog.show();
         }
     }
 }

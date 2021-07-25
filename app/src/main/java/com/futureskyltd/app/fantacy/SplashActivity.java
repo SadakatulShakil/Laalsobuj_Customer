@@ -1,16 +1,4 @@
 package com.futureskyltd.app.fantacy;
-/****************
- *
- * @author 'Hitasoft Technologies'
- *
- * Description:
- * This class is used for displaying splash screen
- *
- * Revision History:
- * Version 1.0 - Initial Version
- *
- *****************/
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;

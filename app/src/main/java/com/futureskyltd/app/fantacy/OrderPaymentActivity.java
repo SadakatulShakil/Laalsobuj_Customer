@@ -17,10 +17,11 @@ import com.sslwireless.sslcommerzlibrary.viewmodel.listener.SSLCTransactionRespo
 
 import pl.droidsonroids.gif.GifImageView;
 
-public class OrderPaymentActivity extends AppCompatActivity implements SSLCTransactionResponseListener {
+public class OrderPaymentActivity extends AppCompatActivity{
 
     GifImageView paymentView, successView, failedView;
     TextView backToHome;
+    private String paymentStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,8 @@ public class OrderPaymentActivity extends AppCompatActivity implements SSLCTrans
 
         Intent intent = getIntent();
         String grandTotal = intent.getStringExtra("amount");
-        int mainBalance = Integer.parseInt(grandTotal);
+        paymentStatus = intent.getStringExtra("paymentStatus");
+        /*int mainBalance = Integer.parseInt(grandTotal);
 
         final SSLCommerzInitialization sslCommerzInitialization = new SSLCommerzInitialization(
                 "futur5fb0b9d53986c",
@@ -45,8 +47,28 @@ public class OrderPaymentActivity extends AppCompatActivity implements SSLCTrans
         IntegrateSSLCommerz
                 .getInstance(OrderPaymentActivity.this)
                 .addSSLCommerzInitialization(sslCommerzInitialization)
-                .buildApiCall(this);
+                .buildApiCall(this);*/
 
+        if(paymentStatus.equals("success")){
+            successView.setVisibility(View.VISIBLE);
+            backToHome.setVisibility(View.VISIBLE);
+            paymentView.setVisibility(View.GONE);
+            failedView.setVisibility(View.GONE);
+
+        }else if(paymentStatus.equals("fail")){
+            failedView.setVisibility(View.VISIBLE);
+            backToHome.setVisibility(View.VISIBLE);
+            paymentView.setVisibility(View.GONE);
+            successView.setVisibility(View.GONE);
+
+        }else if(paymentStatus.equals("validationError")){
+            Toast.makeText(this, "Marchant Validation Error !", Toast.LENGTH_SHORT).show();
+            paymentView.setVisibility(View.VISIBLE);
+            backToHome.setVisibility(View.VISIBLE);
+            failedView.setVisibility(View.GONE);
+            successView.setVisibility(View.GONE);
+
+        }
         backToHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,28 +89,4 @@ public class OrderPaymentActivity extends AppCompatActivity implements SSLCTrans
         failedView = findViewById(R.id.failedView);
     }
 
-    @Override
-    public void transactionSuccess(SSLCTransactionInfoModel sslcTransactionInfoModel) {
-        successView.setVisibility(View.VISIBLE);
-        backToHome.setVisibility(View.VISIBLE);
-        paymentView.setVisibility(View.GONE);
-        failedView.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void transactionFail(String s) {
-        failedView.setVisibility(View.VISIBLE);
-        backToHome.setVisibility(View.VISIBLE);
-        paymentView.setVisibility(View.GONE);
-        successView.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void merchantValidationError(String s) {
-        Toast.makeText(this, "Marchant Validation Error !", Toast.LENGTH_SHORT).show();
-        paymentView.setVisibility(View.VISIBLE);
-        backToHome.setVisibility(View.VISIBLE);
-        failedView.setVisibility(View.GONE);
-        successView.setVisibility(View.GONE);
-    }
 }

@@ -70,6 +70,8 @@ public class FindFriends extends BaseActivity implements View.OnClickListener, T
     ArrayList<HashMap<String, String>> friendsAry = new ArrayList<HashMap<String, String>>();
     private ImageView clearBtn;
     DatabaseHandler helper;
+    String accesstoken, customerId, customerName;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,11 @@ public class FindFriends extends BaseActivity implements View.OnClickListener, T
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+        accesstoken = preferences.getString("TOKEN", null);
+        customerId = preferences.getString("customer_id", null);
+        customerName = preferences.getString("customer_name",null);
 
         title = (TextView) findViewById(R.id.title);
         backBtn = (ImageView) findViewById(R.id.backBtn);
@@ -309,7 +316,7 @@ public class FindFriends extends BaseActivity implements View.OnClickListener, T
                 Map<String, String> map = new HashMap<String, String>();
 
                 if (accesstoken != null) {
-                    map.put("user_id", "289");
+                    map.put("user_id", customerId);
                 }
                 if (from.equals("feedlikes"))
                     map.put("feed_id", feedId);
@@ -388,7 +395,7 @@ public class FindFriends extends BaseActivity implements View.OnClickListener, T
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("user_id", "289");
+                map.put("user_id", customerId);
                 map.put("follow_id", friendsAry.get(position).get(Constants.TAG_USER_ID));
                 Log.i(TAG, "followUserParams: " + map);
                 return map;
@@ -454,10 +461,13 @@ public class FindFriends extends BaseActivity implements View.OnClickListener, T
                     case R.id.mainLay:
                         Intent p = new Intent(FindFriends.this, Profile.class);
                         p.putExtra("userId", Items.get(getAdapterPosition()).get(Constants.TAG_USER_ID));
+                        p.putExtra("follow_status", Items.get(getAdapterPosition()).get("status"));
+                        Log.d(TAG, "onClick: "+ Items.get(getAdapterPosition()).get("status"));
+                        //p.putExtra("userId", Items.get(getAdapterPosition()).get(Constants.TAG_USER_ID));
                         startActivity(p);
                         break;
                     case R.id.followBtn:
-                        if (GetSet.isLogged()) {
+                        if (accesstoken != null) {
                             String status = helper.getUserDetails(Items.get(getAdapterPosition()).get(Constants.TAG_USER_ID));
                             if (status.equalsIgnoreCase("follow")) {
                                 followUser(true, getAdapterPosition());
@@ -470,7 +480,7 @@ public class FindFriends extends BaseActivity implements View.OnClickListener, T
                             }
                             notifyDataSetChanged();
                         } else {
-                            Intent login = new Intent(context, LoginActivity.class);
+                            Intent login = new Intent(context, SignInActivity.class);
                             startActivity(login);
                         }
                         break;
@@ -504,6 +514,7 @@ public class FindFriends extends BaseActivity implements View.OnClickListener, T
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             if (holder instanceof MyViewHolder) {
                 HashMap<String, String> tempMap = Items.get(position);
+                Log.d(TAG, "onBindViewHolder: "+ tempMap.toString());
                 MyViewHolder viewHolder = (MyViewHolder) holder;
                 viewHolder.fullName.setText(tempMap.get(Constants.TAG_FULL_NAME));
                 viewHolder.userName.setText("@" + tempMap.get(Constants.TAG_USER_NAME));
@@ -511,10 +522,12 @@ public class FindFriends extends BaseActivity implements View.OnClickListener, T
                 String image = tempMap.get(Constants.TAG_USER_IMAGE);
                 if (image != null && !image.equals("")) {
                     Picasso.get().load(image).into(viewHolder.userImage);
+                }else{
+                    Picasso.get().load(R.mipmap.appicon_round).into(viewHolder.userImage);
                 }
 
                 String status = helper.getUserDetails(tempMap.get(Constants.TAG_USER_ID));
-                if (GetSet.isLogged() && tempMap.get(Constants.TAG_USER_ID).equals(GetSet.getUserId())) {
+                if (accesstoken != null && tempMap.get(Constants.TAG_USER_ID).equals(customerId)) {
                     viewHolder.followBtn.setVisibility(View.GONE);
                 } else {
                     viewHolder.followBtn.setVisibility(View.VISIBLE);

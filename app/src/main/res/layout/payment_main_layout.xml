@@ -777,6 +777,7 @@
                         android:id="@+id/instantIcon"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
+                        android:layout_gravity="center"
                         android:src="@drawable/radio_unselect" />
 
                     <com.futureskyltd.app.external.CustomTextView

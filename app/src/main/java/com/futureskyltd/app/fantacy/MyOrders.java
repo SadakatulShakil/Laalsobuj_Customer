@@ -117,6 +117,7 @@ public class MyOrders extends Fragment {
     private void getOrdersData(final int offset) {
         SharedPreferences preferences = getActivity().getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
         String accesstoken = preferences.getString("TOKEN", null);
+        String customerId = preferences.getString("customer_id", null);
 
         StringRequest req = new StringRequest(Request.Method.POST, Constants.API_MYORDERS, new Response.Listener<String>() {
             @Override
@@ -231,7 +232,7 @@ public class MyOrders extends Fragment {
                 });
 
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("user_id", "289");
+                map.put("user_id", customerId);
                 map.put("limit", Integer.toString(Constants.OVERALL_LIMIT));
                 map.put("offset", Integer.toString(offset));
                 Log.i(TAG, "getOrdersDataParams: " + map);

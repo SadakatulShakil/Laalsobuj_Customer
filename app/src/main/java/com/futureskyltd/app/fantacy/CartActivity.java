@@ -752,6 +752,7 @@ public class CartActivity extends BaseActivity implements View.OnClickListener, 
                     Intent i = new Intent(this, PaymentActivity.class);
                     i.putExtra("shippingId", shippingId);
                     i.putExtra("totalItems", totalItems);
+                    Log.d(TAG, "onCheck: "+ shippingId+">>>"+totalItems);
                     if (!itemId.equals("0")) {
                         i.putExtra("itemId", id);
                         i.putExtra("size", size);

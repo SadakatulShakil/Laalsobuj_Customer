@@ -96,6 +96,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public CallbackManager callbacksManager;
     SharedPreferences pref;
 
+
     private static void addDeviceId(final Context context) {
         final ProgressDialog dialog = new ProgressDialog(context);
         dialog.setMessage(context.getString(R.string.pleasewait));

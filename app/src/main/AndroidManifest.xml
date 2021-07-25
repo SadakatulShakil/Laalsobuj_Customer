@@ -24,7 +24,8 @@
         <activity
             android:name=".SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".OrderPaymentActivity" />
+        <activity android:name=".OrderPaymentActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".SplashActivity"
@@ -355,5 +356,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
 </manifest>

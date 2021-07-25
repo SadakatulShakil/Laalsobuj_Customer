@@ -79,6 +79,7 @@ public class LocationNCurrency extends BaseActivity implements View.OnClickListe
             //    selectedLang = pref.getString("language", Constants.LANGUAGE);
             title.setText(getString(R.string.language));
             data = (ArrayList<HashMap<String, String>>) getIntent().getExtras().get("data");
+            Log.d(TAG, "onCreate: " + data);
         } else {
             title.setText(getString(R.string.currency));
             data = (ArrayList<HashMap<String, String>>) getIntent().getExtras().get("data");
@@ -90,6 +91,8 @@ public class LocationNCurrency extends BaseActivity implements View.OnClickListe
 
         //  languages = getResources().getStringArray(R.array.languages);
         langCode = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.languageCode)));
+
+        Log.d(TAG, "onLangCode: " + langCode);
 
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -136,7 +139,7 @@ public class LocationNCurrency extends BaseActivity implements View.OnClickListe
                                 editor.putString(Constants.TAG_LANGUAGE, selectedLang);
                                 editor.putString(Constants.TAG_CODE, selectedLangCode);
                                 editor.commit();
-
+                                Log.d(TAG, "onClick: " + selectedLang+"="+selectedLangCode);
                                 setSettings();
                             } else {
                                 FantacyApplication.showToast(context, getString(R.string.language_not_found), Toast.LENGTH_SHORT);
@@ -204,6 +207,7 @@ public class LocationNCurrency extends BaseActivity implements View.OnClickListe
     private void setSettings() {
         SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
         String accesstoken = preferences.getString("TOKEN", null);
+        String customerId = preferences.getString("customer_id", null);
 
         final ProgressDialog dialog = new ProgressDialog(LocationNCurrency.this);
         dialog.setMessage(getString(R.string.pleasewait));
@@ -217,7 +221,7 @@ public class LocationNCurrency extends BaseActivity implements View.OnClickListe
                     if (dialog.isShowing()) {
                         dialog.dismiss();
                     }
-                    Log.v(TAG, "setSettingsRes=" + res);
+                    Log.d(TAG, "setSettingsRes=" + res);
                     JSONObject json = new JSONObject(res);
                     String status = DefensiveClass.optString(json, Constants.TAG_STATUS);
                     if (status.equalsIgnoreCase("true")) {
@@ -254,8 +258,8 @@ public class LocationNCurrency extends BaseActivity implements View.OnClickListe
                 } else {
                     map.put("currency_id", LocationNCurrency.selectedID);
                 }
-                map.put("user_id", "289");
-                Log.v(TAG, "setSettingsParams=" + map);
+                map.put("user_id", customerId);
+                Log.d(TAG, "setSettingsParams=" + map);
                 return map;
             }
             @Override

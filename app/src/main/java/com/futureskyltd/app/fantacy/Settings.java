@@ -1,6 +1,7 @@
 package com.futureskyltd.app.fantacy;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -106,6 +108,9 @@ public class Settings extends BaseActivity implements View.OnClickListener, Netw
     }
 
     private void getSettings() {
+        SharedPreferences preferences = getSharedPreferences("MY_APP", Context.MODE_PRIVATE);
+        String accesstoken = preferences.getString("TOKEN", null);
+        String customerId = preferences.getString("customer_id", null);
         final ProgressDialog dialog = new ProgressDialog(Settings.this);
         dialog.setMessage(getString(R.string.pleasewait));
         dialog.setCancelable(false);
@@ -174,13 +179,13 @@ public class Settings extends BaseActivity implements View.OnClickListener, Netw
                     } else if (status.equalsIgnoreCase("error")) {
                         String message = DefensiveClass.optString(json, Constants.TAG_MESSAGE);
                         if (message.equals(getString(R.string.admin_error)) || message.equals(getString(R.string.admin_delete_error))) {
-                            Intent i = new Intent(Settings.this, PaymentStatus.class);
+                           /* Intent i = new Intent(Settings.this, PaymentStatus.class);
                             i.putExtra("from", "block");
-                            startActivity(i);
+                            startActivity(i);*/
                         } else {
-                            Intent i = new Intent(Settings.this, PaymentStatus.class);
+                            /*Intent i = new Intent(Settings.this, PaymentStatus.class);
                             i.putExtra("from", "maintenance");
-                            startActivity(i);
+                            startActivity(i);*/
                         }
                     }
 
@@ -205,10 +210,19 @@ public class Settings extends BaseActivity implements View.OnClickListener, Netw
         }) {
             @Override
             protected Map<String, String> getParams() {
+
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("user_id", GetSet.getUserId());
+                map.put("user_id", customerId);
                 Log.v(TAG, "getSettingsParams=" + map);
                 return map;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + accesstoken);
+                Log.d(TAG, "getHeaders: " + accesstoken);
+                return headers;
             }
         };
         dialog.show();

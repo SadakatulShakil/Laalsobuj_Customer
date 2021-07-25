@@ -29,6 +29,12 @@ import com.futureskyltd.app.helper.NetworkReceiver;
 import com.futureskyltd.app.utils.Constants;
 import com.futureskyltd.app.utils.DefensiveClass;
 import com.futureskyltd.app.utils.GetSet;
+import com.sslwireless.sslcommerzlibrary.model.initializer.SSLCommerzInitialization;
+import com.sslwireless.sslcommerzlibrary.model.response.SSLCTransactionInfoModel;
+import com.sslwireless.sslcommerzlibrary.model.util.SSLCCurrencyType;
+import com.sslwireless.sslcommerzlibrary.model.util.SSLCSdkType;
+import com.sslwireless.sslcommerzlibrary.view.singleton.IntegrateSSLCommerz;
+import com.sslwireless.sslcommerzlibrary.viewmodel.listener.SSLCTransactionResponseListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,8 +43,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
-public class PaymentActivity extends BaseActivity implements View.OnClickListener, NetworkReceiver.ConnectivityReceiverListener {
+public class PaymentActivity extends BaseActivity implements View.OnClickListener, NetworkReceiver.ConnectivityReceiverListener, SSLCTransactionResponseListener {
 
     private final String TAG = this.getClass().getSimpleName();
     private static final int DROP_IN_REQUEST = 100;
@@ -57,6 +62,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
     int totalItems = 0;
     private SharedPreferences preferences;
     private String accesstoken, customerId;
+    private String paymentStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,7 +178,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onResponse(String res) {
                 try {
-                    Log.v(TAG, "getPaymentRes=" + res);
+                    Log.d(TAG, "getPaymentRes" + res);
                     JSONObject json = new JSONObject(res);
 
                     String status = DefensiveClass.optString(json, Constants.TAG_STATUS);
@@ -602,14 +608,14 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
                     dialog.dismiss();
                 }
                 try {
-                    Log.v(TAG, "createOrderRes=" + res);
+                    Log.d(TAG, "createOrderRes " + res);
                     JSONObject json = new JSONObject(res);
                     String status = DefensiveClass.optString(json, Constants.TAG_STATUS);
                     if (status.equalsIgnoreCase("true")) {
-                        /*Intent i = new Intent(PaymentActivity.this, PaymentStatus.class);
-                        i.putExtra("from", "payment");
-                        startActivity(i);
-                        finish();*/
+                        finish();
+                        Intent successIntent = new Intent(PaymentActivity.this, OrderPaymentActivity.class);
+                        successIntent.putExtra("paymentStatus", paymentStatus);
+                        startActivity(successIntent);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -832,7 +838,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
                 instantIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.radio_unselect));
                 break;
             case R.id.instantLay:
-                paymentType = "braintree";
+                paymentType = "sslcommerz";
                 codIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.radio_unselect));
                 instantIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.radio_select));
                 break;
@@ -841,18 +847,150 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
                     case "":
                         FantacyApplication.defaultSnack(PaymentActivity.this.findViewById(R.id.parentLay), getString(R.string.select_payment), "alert");
                         break;
-                    case "braintree":
-                        checkOrder("braintree");
+                    case "sslcommerz":
+                        //checkOrder("ssl");
+                        checkOrderNow("sslcommerz");
                         break;
                     default:
-                        checkOrder("");
+                        //checkOrder("");
+                        checkOrderNow("");
                         break;
                 }
                 break;
         }
     }
 
-    private void checkOrder(final String paymentType) {
+    private void checkOrderNow(String paymentType) {
+        int mainBalance = Integer.parseInt(grand_total);
+        final SSLCommerzInitialization sslCommerzInitialization = new SSLCommerzInitialization(
+                "futur5fb0b9d53986c",
+                "futur5fb0b9d53986c@ssl",
+                 mainBalance, SSLCCurrencyType.BDT,
+                "123456789098765",
+                "T-Shirt",
+                 SSLCSdkType.TESTBOX);
+
+
+
+        IntegrateSSLCommerz
+                .getInstance(PaymentActivity.this)
+                .addSSLCommerzInitialization(sslCommerzInitialization)
+                .buildApiCall(this);
+
+    }
+
+    @Override
+    public void transactionSuccess(SSLCTransactionInfoModel sslcTransactionInfoModel) {
+        paymentStatus = "success";
+        StringRequest req = new StringRequest(Request.Method.POST, Constants.API_PAYMENT_PROCESS, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String res) {
+                try {
+                    Log.d(TAG, "checkOrderRes" + res);
+                    JSONObject json = new JSONObject(res);
+
+                    String status = DefensiveClass.optString(json, Constants.TAG_STATUS);
+                    if (status.equalsIgnoreCase("true")) {
+                        if (paymentType.equals("sslcommerz")) {
+
+                            Log.d(TAG, "onResponse: "+ grand_total);
+                            if (dialog.isShowing()) {
+                                dialog.dismiss();
+                            }
+                            //generateToken();
+                            createOrder("");
+                        }
+                    } else {
+                        String message = DefensiveClass.optString(json, Constants.TAG_MESSAGE);
+                        if (message.equals("Requested Quantity Not Available")) {
+                            if (dialog.isShowing()) {
+                                dialog.dismiss();
+                            }
+                            Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+                            intent.putExtra("itemId", "0");
+                            intent.putExtra("shippingId", shippingId);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    setErrorLayout();
+                    e.printStackTrace();
+                } catch (NullPointerException e) {
+                    setErrorLayout();
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    setErrorLayout();
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "checkOrderError: " + error.getMessage());
+                setErrorLayout();
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("user_id", customerId);
+                map.put("item_id", itemId);
+                map.put("shipping_id", shippingId);
+                if (!couponCode.equals(""))
+                    map.put("coupon_code", couponCode);
+
+                if (!giftCard.equals(""))
+                    map.put("gift_no", giftCard);
+
+                if (!creditApplied.equals(""))
+                    map.put("credit_amount", creditApplied);
+
+                map.put("size", size);
+                map.put("quantity", quantity);
+
+                Log.v(TAG, "checkOrderParams=" + map.toString());
+                return map;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + accesstoken);
+                Log.d(TAG, "getHeaders: " + accesstoken);
+                return headers;
+            }
+        };
+        dialog.show();
+        FantacyApplication.getInstance().addToRequestQueue(req);
+
+    }
+
+    @Override
+    public void transactionFail(String s) {
+        paymentStatus = "fail";
+        finish();
+        Intent failIntent = new Intent(PaymentActivity.this, OrderPaymentActivity.class);
+        failIntent.putExtra("paymentStatus", paymentStatus);
+        startActivity(failIntent);
+    }
+
+    @Override
+    public void merchantValidationError(String s) {
+        paymentStatus = "validationError";
+        finish();
+        Intent validationIntent = new Intent(PaymentActivity.this, OrderPaymentActivity.class);
+        validationIntent.putExtra("paymentStatus", paymentStatus);
+        startActivity(validationIntent);
+    }
+
+   /* private void checkOrder(final String paymentType) {
         StringRequest req = new StringRequest(Request.Method.POST, Constants.API_PAYMENT_PROCESS, new Response.Listener<String>() {
 
             @Override
@@ -869,12 +1007,8 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
                             if (dialog.isShowing()) {
                                 dialog.dismiss();
                             }
-                            finish();
-                            Intent intent = new Intent(PaymentActivity.this, OrderPaymentActivity.class);
-                            intent.putExtra("amount", grand_total);
-                            startActivity(intent);
                             //generateToken();
-//                            createOrder("");
+                            createOrder("");
                         } else {
                             createOrder("");
                         }
@@ -946,5 +1080,6 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
         };
         dialog.show();
         FantacyApplication.getInstance().addToRequestQueue(req);
-    }
+    }*/
+
 }

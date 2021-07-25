@@ -107,6 +107,7 @@
     <string name="district">District Name</string>
     <string name="password">Password</string>
     <string name="or_signin_using">or Sign in using</string>
+    <string name="new_user">If You are a new User?</string>
     <string name="name">Name</string>
     <string name="username">Username</string>
     <string name="phone">Phone</string>
@@ -170,7 +171,7 @@
     <string name="amount_should_not_empty">Amount should not be empty</string>
     <string name="discount">Discount</string>
     <string name="cash_on_delivery">Cash on Delivery (COD)</string>
-    <string name="instant_pay">Instant Pay (Paypal, Credit/Debit card)</string>
+    <string name="instant_pay">SSL Commerce (Bkash, Rocket, AB Bank, Credit/Debit card)</string>
     <string name="your_order_placed_successfully">Your order placed successfully!</string>
     <string name="please_visit_order_page">Please visit my order page to check the order progress and more details.</string>
     <string name="view_order_history">View order history</string>
@@ -488,6 +489,7 @@
 
     <string name="forgot_pass">Forgot Password?</string>
     <string name="please_enter_valid_user">Please enter a valid user</string>
+    <string name="password_required">This field is required!</string>
     <string name="post_deleted">Your post has been deleted successfully</string>
     <string name="product_soldout">This Product is Sold Out</string>
     <string name="credit_low">Credit balance is low</string>
@@ -545,5 +547,6 @@
         <item>fr</item>
         <item>ar</item>
         <item>de</item>
+        <item>bn</item>
     </string-array>
 </resources>
